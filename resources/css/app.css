@@ -18,6 +18,9 @@
     --color-destructive: #b22234;
     --color-destructive-foreground: #ffffff;
 
+    --color-warning: #e3bc1f;
+    --color-warning-foreground: #ffffff;
+
     --color-muted: #efefef;
     --color-muted-foreground: #737791;
 

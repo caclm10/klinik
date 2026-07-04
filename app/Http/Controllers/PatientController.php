@@ -110,4 +110,30 @@ class PatientController extends Controller
     {
         return view('tambah-data-pasien');
     }
+
+    public function show(string $id): View
+    {
+        $patient = (object) [
+            'id' => 1,
+            'name' => 'Joko Saputra',
+            'birth_place' => 'Surakarta',
+            'birth_date' => '21/06/1961',
+            'gender' => 'Laki-Laki',
+            'phone' => '081311961193',
+            'address' => 'Jl. Tuba II, Medan Denai',
+
+            'therapy' => (object) [
+                'complaint' => 'Stroke',
+                'treatment' => 'Terapi Stroke',
+                'schedule_date' => '15/02/2026',
+                'schedule_time' => '15.00 - 16.00 WIB',
+                'practitioner' => 'dr. Yoga Darmawan',
+                'status' => 'Menunggu',
+            ],
+        ];
+
+        return view('biodata-pasien', [
+            'patient' => $patient,
+        ]);
+    }
 }

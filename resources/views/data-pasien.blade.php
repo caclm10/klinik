@@ -34,8 +34,7 @@
         <div class="flex flex-col gap-6 mt-8">
             <div class="text-center flex flex-col gap-2">
                 <p class="font-semibold text-lg">Belum Ada Data</p>
-                <p class="text-sm text-muted-foreground">Buat jadwal Terapi atau tambah data pasien untuk menampilkan
-                    data</p>
+                <p class="text-sm text-muted-foreground">Tambah data pasien untuk menampilkan data</p>
             </div>
 
             <div class="flex justify-center">
@@ -83,9 +82,10 @@
                             <td>{{ $patient->phone }}</td>
                             <td>{{ $patient->address }}</td>
                             <td>
-                                <button type="button" class="button bg-primary text-primary-foreground button--sm">
+                                <a href="/data-pasien/{{ $patient->id }}"
+                                    class="button bg-primary text-primary-foreground button--sm">
                                     Detail
-                                </button>
+                                </a>
                             </td>
                         </tr>
                     @endforeach
