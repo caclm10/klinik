@@ -1,0 +1,15 @@
+{
+    "$schema": "https://opencode.ai/config.json",
+    "mcp": {
+        "laravel-boost": {
+            "type": "local",
+            "enabled": true,
+            "command": ["php", "artisan", "boost:mcp"]
+        },
+        "penpot": {
+            "type": "remote",
+            "url": "https://penpot.lewinxander.com/mcp/stream?userToken=eyJhbGciOiJBMjU2S1ciLCJlbmMiOiJBMjU2R0NNIn0.I8cgeFgg535ZJItjXtWkbjtsYFopn7aG9nLu56762THFSyWZtF_4EQ.fQ3dtXiRBOBjz4mo.gH2pjTlXeJyubaJwEmLTyL6txIH2VNAb-1qmHhtnEL65ENHzaxBHSNLIIcFWGGwhTIZZKb2xYy2cJ4M-kTlyzWOW9qsaJi5Fe7I6d1_8IfAWkYQd5T40Cd9YqhH8-Gd5Y5kawv0o6eRssgDxa4ZRrtcAHDN_dyeoYE54xv5ep2dnzmpHhTptO9wpmO709hDmfyO-NvHnChQS.ZGqMFHv7J5jkBSOvS9f8uA",
+            "enabled": true
+        }
+    }
+}
