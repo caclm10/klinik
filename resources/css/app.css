@@ -1,29 +1,110 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
 
 @theme {
-    --font-sans: 'Poppins', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji',
-        'Segoe UI Symbol', 'Noto Color Emoji';
-    --font-poppins: 'Poppins', ui-sans-serif, system-ui, sans-serif;
+    --font-sans:
+        "Poppins", ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji",
+        "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji";
+    --font-poppins: "Poppins", ui-sans-serif, system-ui, sans-serif;
 
-    --color-background: #F9FAFB;
+    --color-background: #f9fafb;
     --color-foreground: #333;
 
-    --color-primary: #35C4F2;
-    --color-primary-foreground: #FFFFFF;
+    --color-primary: #35c4f2;
+    --color-primary-foreground: #ffffff;
 
-    --color-muted: #EFEFEF;
+    --color-destructive: #b22234;
+    --color-destructive-foreground: #ffffff;
+
+    --color-muted: #efefef;
     --color-muted-foreground: #737791;
 
     --color-border: #737791;
-    --color-card: #FFFFFF;
+    --color-card: #ffffff;
 
     --color-dark: #333333;
 
     /* Sidebar */
-    --color-sidebar-foreground: #5D5D5D;
+    --color-sidebar-foreground: #5d5d5d;
     --width-sidebar: calc(var(--spacing) * 72);
+}
 
+@layer components {
+    .button {
+        @apply inline-flex items-center justify-center gap-2 rounded-lg font-medium px-3 h-10 text-sm border;
+    }
+
+    .button--sm {
+        @apply h-8 px-2 text-xs;
+    }
+
+    .button--icon {
+        @apply size-8;
+    }
+
+    .button svg {
+        flex-shrink: 0;
+    }
+
+    .input {
+        @apply h-10 px-3 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary;
+    }
+
+    select.input {
+        background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
+        background-position: right 0.5rem center;
+        background-repeat: no-repeat;
+        background-size: 1.5em 1.5em;
+        padding-right: 2.5rem;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+        -webkit-appearance: none;
+        -moz-appearance: none;
+        appearance: none;
+    }
+
+    .table {
+        width: 100%;
+    }
+
+    .table th {
+        @apply bg-foreground text-white text-sm px-4 py-3 text-nowrap;
+    }
+
+    .table td {
+        @apply text-sm px-4 py-3 text-nowrap;
+    }
+
+    .table--sm th,
+    .table--sm td {
+        @apply px-3 py-2;
+    }
+
+    .table--rounded {
+        --table-radius: var(--radius-lg);
+    }
+
+    .table--rounded thead tr th:first-child {
+        border-top-left-radius: var(--table-radius);
+        border-bottom-left-radius: var(--table-radius);
+    }
+    .table--rounded thead tr th:last-child {
+        border-top-right-radius: var(--table-radius);
+        border-bottom-right-radius: var(--table-radius);
+    }
+
+    .table--rounded tbody tr:first-child td:first-child {
+        border-top-left-radius: var(--table-radius);
+    }
+    .table--rounded tbody tr:first-child td:last-child {
+        border-top-right-radius: var(--table-radius);
+    }
+    .table--rounded tbody tr:last-child td:first-child {
+        border-bottom-left-radius: var(--table-radius);
+    }
+    .table--rounded tbody tr:last-child td:last-child {
+        border-bottom-right-radius: var(--table-radius);
+    }
 }

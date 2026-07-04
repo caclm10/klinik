@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\PatientController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -14,6 +15,8 @@ Route::get('/dashboard', function () {
     return view('dashboard');
 });
 
-Route::get('/data-pasien', function () {
-    return view('data-pasien');
+Route::get('/data-pasien', [PatientController::class, 'index']);
+
+Route::get('/data-pasien/tambah', function () {
+    return view('tambah-data-pasien');
 });

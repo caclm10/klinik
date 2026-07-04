@@ -37,13 +37,10 @@
                     class="flex items-center gap-4 px-6 py-4 data-active:bg-primary data-active:text-primary-foreground rounded-2xl"
                     @if ($req->is('data-pasien*')) data-active @endif>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="size-5">
-                        <path d="M15 12h-5" />
-                        <path d="M15 8h-5" />
-                        <path d="M19 17V5a2 2 0 0 0-2-2H4" />
-                        <path
-                            d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3" />
+                        fill="none" class="size-5">
+                        <rect x="4" y="2" width="16" height="20" rx="2" stroke="currentColor"
+                            stroke-width="2" />
+                        <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                     </svg>
 
                     <span>
@@ -75,12 +72,9 @@
                 <a href="#"
                     class="flex items-center gap-4 px-6 py-4 data-active:bg-primary data-active:text-primary-foreground rounded-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="size-5">
-                        <path d="M13.744 17.736a6 6 0 1 1-7.48-7.48" />
-                        <path d="M15 6h1v4" />
-                        <path d="m6.134 14.768.866-.5 2 3.464" />
-                        <circle cx="16" cy="8" r="6" />
+                        fill="none" class="size-5">
+                        <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2" />
+                        <path d="M12 7v10M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                     </svg>
 
                     <span>
@@ -93,12 +87,10 @@
                 <a href="#"
                     class="flex items-center gap-4 px-6 py-4 data-active:bg-primary data-active:text-primary-foreground rounded-2xl">
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" class="size-5">
-                        <path d="M15 13a3 3 0 1 0-6 0" />
-                        <path
-                            d="M4 19.5v-15A2.5 2.5 0 0 1 6.5 2H19a1 1 0 0 1 1 1v18a1 1 0 0 1-1 1H6.5a1 1 0 0 1 0-5H20" />
-                        <circle cx="12" cy="8" r="2" />
+                        fill="none" class="size-5">
+                        <circle cx="12" cy="9" r="4" stroke="currentColor" stroke-width="2" />
+                        <path d="M5.5 20v-2a4 4 0 014-4h5a4 4 0 014 4v2" stroke="currentColor" stroke-width="2" />
+                        <path d="M12 7v4M10 9h4" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
                     </svg>
                     <span>
                         Dokter/Perawat

@@ -113,73 +113,73 @@
             </div>
 
             <div class="overflow-x-auto pb-6">
-                <table class="w-full">
+                <table class="table table--sm">
                     <thead>
                         <tr>
-                            <th class="bg-foreground text-white text-sm px-3 py-2">ID</th>
-                            <th class="bg-foreground text-white text-sm px-3 py-2">Nama</th>
-                            <th class="bg-foreground text-white text-sm px-3 py-2">Keluhan</th>
-                            <th class="bg-foreground text-white text-sm px-3 py-2">Treatment</th>
-                            <th class="bg-foreground text-white text-sm px-3 py-2">Jadwal</th>
-                            <th class="bg-foreground text-white text-sm px-3 py-2">Waktu</th>
-                            <th class="bg-foreground text-white text-sm px-3 py-2">Perawat/Dokter</th>
-                            <th class="bg-foreground text-white text-sm px-3 py-2">Status</th>
+                            <th>ID</th>
+                            <th>Nama</th>
+                            <th>Keluhan</th>
+                            <th>Treatment</th>
+                            <th>Jadwal</th>
+                            <th>Waktu</th>
+                            <th>Perawat/Dokter</th>
+                            <th>Status</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="text-sm px-3 py-2 text-center">1</td>
-                            <td class="text-sm px-3 py-2 text-nowrap">Joko Saputra</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Stroke</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Terapi Stroke</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">15/02/2026</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">15.00 - 16.00 WIB</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">dr. Yoga Dar..</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Menunggu</td>
+                            <td class="text-center">1</td>
+                            <td class="text-nowrap">Joko Saputra</td>
+                            <td class="text-center text-nowrap">Stroke</td>
+                            <td class="text-center text-nowrap">Terapi Stroke</td>
+                            <td class="text-center text-nowrap">15/02/2026</td>
+                            <td class="text-center text-nowrap">15.00 - 16.00 WIB</td>
+                            <td class="text-center text-nowrap">dr. Yoga Dar..</td>
+                            <td class="text-center text-nowrap">Menunggu</td>
                         </tr>
 
                         <tr>
-                            <td class="text-sm px-3 py-2 text-center">2</td>
-                            <td class="text-sm px-3 py-2 text-nowrap">Anwar Maulana</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Sakit Punggung</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Terapi Full Body</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">15/02/2026</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">10.00 - 11.00 WIB</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Usman Mudly..</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Selesai</td>
+                            <td class="text-center">2</td>
+                            <td class="text-nowrap">Anwar Maulana</td>
+                            <td class="text-center text-nowrap">Sakit Punggung</td>
+                            <td class="text-center text-nowrap">Terapi Full Body</td>
+                            <td class="text-center text-nowrap">15/02/2026</td>
+                            <td class="text-center text-nowrap">10.00 - 11.00 WIB</td>
+                            <td class="text-center text-nowrap">Usman Mudly..</td>
+                            <td class="text-center text-nowrap">Selesai</td>
                         </tr>
 
                         <tr>
-                            <td class="text-sm px-3 py-2 text-center">3</td>
-                            <td class="text-sm px-3 py-2 text-nowrap">Suwarni</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Tangan Kebas</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Terapi full body</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">14/02/2026</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">15.00 - 16.00 WIB</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Sabila Nuru..</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Selesai</td>
+                            <td class="text-center">3</td>
+                            <td class="text-nowrap">Suwarni</td>
+                            <td class="text-center text-nowrap">Tangan Kebas</td>
+                            <td class="text-center text-nowrap">Terapi full body</td>
+                            <td class="text-center text-nowrap">14/02/2026</td>
+                            <td class="text-center text-nowrap">15.00 - 16.00 WIB</td>
+                            <td class="text-center text-nowrap">Sabila Nuru..</td>
+                            <td class="text-center text-nowrap">Selesai</td>
                         </tr>
 
                         <tr>
-                            <td class="text-sm px-3 py-2 text-center">4</td>
-                            <td class="text-sm px-3 py-2 text-nowrap">Teguh Baskara</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Sesak Nafas</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Hydrogen Inha..</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">08/02/2026</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">15.00 - 16.00 WIB</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Usman Mudiy..</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Selesai</td>
+                            <td class="text-center">4</td>
+                            <td class="text-nowrap">Teguh Baskara</td>
+                            <td class="text-center text-nowrap">Sesak Nafas</td>
+                            <td class="text-center text-nowrap">Hydrogen Inha..</td>
+                            <td class="text-center text-nowrap">08/02/2026</td>
+                            <td class="text-center text-nowrap">15.00 - 16.00 WIB</td>
+                            <td class="text-center text-nowrap">Usman Mudiy..</td>
+                            <td class="text-center text-nowrap">Selesai</td>
                         </tr>
 
                         <tr>
-                            <td class="text-sm px-3 py-2 text-center">5</td>
-                            <td class="text-sm px-3 py-2 text-nowrap">Sawiyah</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Kaki Kebas</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Terapi full body</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">06/02/2026</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">15.00 - 16.00 WIB</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">dr. Indri cah..</td>
-                            <td class="text-sm px-3 py-2 text-center text-nowrap">Selesai</td>
+                            <td class="text-center">5</td>
+                            <td class="text-nowrap">Sawiyah</td>
+                            <td class="text-center text-nowrap">Kaki Kebas</td>
+                            <td class="text-center text-nowrap">Terapi full body</td>
+                            <td class="text-center text-nowrap">06/02/2026</td>
+                            <td class="text-center text-nowrap">15.00 - 16.00 WIB</td>
+                            <td class="text-center text-nowrap">dr. Indri cah..</td>
+                            <td class="text-center text-nowrap">Selesai</td>
                         </tr>
                     </tbody>
                 </table>
