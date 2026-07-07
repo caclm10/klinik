@@ -58,7 +58,10 @@
                             <td>{{ $patient->address }}</td>
                             <td>
                                 @if ($patient->payed_at)
-                                    <span class="badge badge--success">Lunas</span>
+                                    <a href="/kasir/{{ $patient->id }}"
+                                        class="button button--sm bg-success text-success-foreground border-success">
+                                        Lunas
+                                    </a>
                                 @else
                                     <a href="/kasir/{{ $patient->id }}"
                                         class="button button--sm bg-info text-info-foreground border-info">

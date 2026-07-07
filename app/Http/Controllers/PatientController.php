@@ -101,19 +101,33 @@ class PatientController extends Controller
             ],
         ];
 
-        return view('data-pasien', [
+        return view('pages.patients.index', [
             'patients' => collect($patients),
         ]);
     }
 
     public function create(): View
     {
-        return view('tambah-data-pasien');
+        return view('pages.patients.create');
+    }
+
+    public function edit(string $id): View
+    {
+        return view('pages.patients.edit', [
+            'patient' => $this->patientDetail(),
+        ]);
     }
 
     public function show(string $id): View
     {
-        $patient = (object) [
+        return view('pages.patients.show', [
+            'patient' => $this->patientDetail(),
+        ]);
+    }
+
+    private function patientDetail(): object
+    {
+        return (object) [
             'id' => 1,
             'name' => 'Joko Saputra',
             'birth_place' => 'Surakarta',
@@ -131,9 +145,5 @@ class PatientController extends Controller
                 'status' => 'Menunggu',
             ],
         ];
-
-        return view('biodata-pasien', [
-            'patient' => $patient,
-        ]);
     }
 }

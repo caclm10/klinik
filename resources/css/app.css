@@ -47,7 +47,7 @@
 
 @layer components {
     .badge {
-        @apply inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3!;
+        @apply inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3;
     }
 
     .badge--success {
@@ -120,41 +120,48 @@
     }
 
     /* row pertama yang BUKAN spacer */
-    .table--rounded
-        tbody
-        > tr:nth-child(1 of :not([data-spacer]))
-        td:first-child {
+    .table--rounded tbody>tr:nth-child(1 of :not([data-spacer])) td:first-child {
         border-top-left-radius: var(--table-radius);
     }
 
-    .table--rounded
-        tbody
-        > tr:nth-child(1 of :not([data-spacer]))
-        td:last-child {
+    .table--rounded tbody>tr:nth-child(1 of :not([data-spacer])) td:last-child {
         border-top-right-radius: var(--table-radius);
     }
 
     /* row terakhir yang BUKAN spacer */
-    .table--rounded
-        tbody
-        > tr:nth-last-child(1 of :not([data-spacer]))
-        td:first-child {
+    .table--rounded tbody>tr:nth-last-child(1 of :not([data-spacer])) td:first-child {
         border-bottom-left-radius: var(--table-radius);
     }
 
-    .table--rounded
-        tbody
-        > tr:nth-last-child(1 of :not([data-spacer]))
-        td:last-child {
+    .table--rounded tbody>tr:nth-last-child(1 of :not([data-spacer])) td:last-child {
         border-bottom-right-radius: var(--table-radius);
     }
 
     .dialog {
-        @apply fixed inset-0 size-full max-w-none max-h-none py-16 bg-black/20 justify-center items-start open:flex transition-[opacity,display,overlay] transition-discrete duration-300 starting:open:opacity-0 open:opacity-100 opacity-0 backdrop:opacity-0 starting:open:backdrop:opacity-0 open:backdrop:opacity-1 backdrop:transition-[opacity,display] backdrop:transition-discrete backdrop:duration-300;
+        @apply fixed inset-0 size-full max-w-none max-h-none py-16 bg-black/20 justify-center items-start open:flex transition-opacity duration-300 starting:open:opacity-0 open:opacity-100 opacity-0 backdrop:opacity-0 starting:open:backdrop:opacity-0 open:backdrop:opacity-1 backdrop:transition-opacity backdrop:duration-300;
     }
 
     .dialog [data-slot="content"] {
         max-height: calc(100vh - 48px - 128px - 100px);
         overflow-y: auto;
+    }
+
+    .account-trigger {
+        anchor-name: --account-trigger;
+    }
+
+    .account-menu {
+        position: fixed;
+        position-anchor: --account-trigger;
+        inset: auto;
+        top: calc(anchor(bottom) + 0.5rem);
+        right: anchor(right);
+        margin: 0;
+        padding: 0;
+        width: min(16rem, calc(100vw - 2rem));
+        border: 1px solid var(--color-border);
+        border-radius: 1rem;
+        background: var(--color-card);
+        box-shadow: 0 20px 50px rgba(15, 23, 42, 0.14);
     }
 }
