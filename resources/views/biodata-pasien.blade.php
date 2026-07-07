@@ -94,7 +94,7 @@
             <div class="flex flex-col gap-6">
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Keluhan</span>
-                    <span class="text-2xl">#{{ $patient->therapy->complaint }}</span>
+                    <span class="">{{ $patient->therapy->complaint }}</span>
                 </div>
 
                 <div class="flex flex-col gap-1">

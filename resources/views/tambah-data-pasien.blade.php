@@ -45,62 +45,17 @@
                     </div>
                 </div>
 
-                {{-- Row 3: No. Hp + Alamat --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium ">No. Hp</label>
-                        <input type="text" placeholder="Contoh 08123456789" class="input">
-                    </div>
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium ">Alamat</label>
-                        <input type="text" placeholder="Contoh Jl. Tuba II, Medan Denai" class="input">
-                    </div>
-                </div>
-
-                {{-- Row 4: Keluhan --}}
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[18px] font-medium ">Keluhan</label>
-                    <input type="text" placeholder="Contoh Stroke" class="input">
+                    <label class="text-[18px] font-medium ">No. Hp</label>
+                    <input type="text" placeholder="Contoh 08123456789" class="input">
                 </div>
 
-                {{-- Row 5: Treatment --}}
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[18px] font-medium ">Treatment</label>
-                    <input type="text" placeholder="Contoh Terapi Stroke" class="input">
+                    <label class="text-[18px] font-medium ">Alamat</label>
+                    <input type="text" placeholder="Contoh Jl. Tuba II, Medan Denai" class="input">
                 </div>
 
-                {{-- Row 6: Jadwal + Waktu --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium ">Jadwal</label>
-                        <div class="flex items-center justify-between w-full h-10 px-3 border border-border rounded-md">
-                            <span class="text-[14px] ">Hr/Bln/Thn</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                                fill="none">
-                                <path d="M3 9h18M9 3v4m6-4v4" stroke="#737791" stroke-width="2"
-                                    stroke-linecap="round" />
-                                <rect x="3" y="5" width="18" height="16" rx="2" stroke="#737791"
-                                    stroke-width="2" />
-                            </svg>
-                        </div>
-                    </div>
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium ">Waktu</label>
-                        <input type="text" placeholder="Contoh 13.00 - 14.00 WIB" class="input">
-                    </div>
-                </div>
 
-                {{-- Row 7: Dokter/Perawat + Status --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium ">Dokter/ Perawat</label>
-                        <input type="text" placeholder="Contoh dr.Yoga" class="input">
-                    </div>
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium ">Status</label>
-                        <input type="text" placeholder="Contoh Selesai" class="input">
-                    </div>
-                </div>
 
                 {{-- Row 8: Buttons --}}
                 <div class="flex flex-col gap-3">
@@ -109,8 +64,8 @@
                         Simpan
                     </button>
 
-                    <button type="button" class="button text-destructive border-destructive">
-                        Hapus Data
+                    <button type="button" class="button">
+                        Batal
                     </button>
                 </div>
 
@@ -118,5 +73,7 @@
 
         </div>
     </div>
+
+
 
 </x-layout.dashboard>

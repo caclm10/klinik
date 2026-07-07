@@ -1,7 +1,10 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
 @source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
 @source '../../storage/framework/views/*.php';
+
+@custom-variant dark (&:is(.dark *));
 
 @theme {
     --font-sans:
@@ -53,6 +56,7 @@
 
     .input {
         @apply h-10 px-3 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary;
+        background-color: var(--color-white);
     }
 
     select.input {
@@ -93,21 +97,48 @@
         border-top-left-radius: var(--table-radius);
         border-bottom-left-radius: var(--table-radius);
     }
+
     .table--rounded thead tr th:last-child {
         border-top-right-radius: var(--table-radius);
         border-bottom-right-radius: var(--table-radius);
     }
 
-    .table--rounded tbody tr:first-child td:first-child {
+    /* row pertama yang BUKAN spacer */
+    .table--rounded
+        tbody
+        > tr:nth-child(1 of :not([data-spacer]))
+        td:first-child {
         border-top-left-radius: var(--table-radius);
     }
-    .table--rounded tbody tr:first-child td:last-child {
+
+    .table--rounded
+        tbody
+        > tr:nth-child(1 of :not([data-spacer]))
+        td:last-child {
         border-top-right-radius: var(--table-radius);
     }
-    .table--rounded tbody tr:last-child td:first-child {
+
+    /* row terakhir yang BUKAN spacer */
+    .table--rounded
+        tbody
+        > tr:nth-last-child(1 of :not([data-spacer]))
+        td:first-child {
         border-bottom-left-radius: var(--table-radius);
     }
-    .table--rounded tbody tr:last-child td:last-child {
+
+    .table--rounded
+        tbody
+        > tr:nth-last-child(1 of :not([data-spacer]))
+        td:last-child {
         border-bottom-right-radius: var(--table-radius);
+    }
+
+    .dialog {
+        @apply fixed inset-0 size-full max-w-none max-h-none py-16 bg-black/20 justify-center items-start open:flex transition-[opacity,display,overlay] transition-discrete duration-300 starting:open:opacity-0 open:opacity-100 opacity-0 backdrop:opacity-0 starting:open:backdrop:opacity-0 open:backdrop:opacity-1 backdrop:transition-[opacity,display] backdrop:transition-discrete backdrop:duration-300;
+    }
+
+    .dialog [data-slot="content"] {
+        max-height: calc(100vh - 48px - 128px - 100px);
+        overflow-y: auto;
     }
 }
