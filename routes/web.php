@@ -31,3 +31,9 @@ Route::get('/jadwal-terapi/{month}-{year}', [ScheduleController::class, 'indexBy
 Route::get('/jadwal-terapi/{id}', [ScheduleController::class, 'show']);
 
 Route::get('/kasir', [CashierTransactionController::class, 'index']);
+Route::get('/kasir/{month}-{year}', [CashierTransactionController::class, 'indexByMonth'])
+    ->where([
+        'month' => '0?[1-9]|1[0-2]',
+        'year' => '20[0-9]{2}',
+    ]);
+Route::get('/kasir/{id}', [CashierTransactionController::class, 'show']);

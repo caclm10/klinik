@@ -19,7 +19,7 @@
     </div>
 
     <div class="flex flex-col gap-4">
-        <a href="#" class="button bg-white justify-start gap-1">
+        <a href="{{ url('/kasir/02-2026') }}" class="button bg-white justify-start gap-1">
             <span class="">Februari</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
@@ -31,7 +31,7 @@
             <span class="text-primary">2026</span>
         </a>
 
-        <a href="#" class="button bg-white justify-start gap-1">
+        <a href="{{ url('/kasir/01-2026') }}" class="button bg-white justify-start gap-1">
             <span class="">Januari</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
@@ -43,7 +43,7 @@
             <span class="text-primary">2026</span>
         </a>
 
-        <a href="#" class="button bg-white justify-start gap-1">
+        <a href="{{ url('/kasir/12-2025') }}" class="button bg-white justify-start gap-1">
             <span class="">Desember</span>
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">

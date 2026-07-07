@@ -31,6 +31,7 @@ class TempAction
             'address' => 'Jl. Tuba II, Medan Denai',
 
             'therapy' => (object) [
+                'id' => 1,
                 'complaint' => 'Stroke',
                 'treatment' => 'Terapi Stroke',
                 'schedule_date' => '15/02/2026',
@@ -103,6 +104,7 @@ class TempAction
                 'gender' => 'Laki-Laki',
                 'phone' => '081311961193',
                 'address' => 'Jl. Tuba II, Medan Denai',
+                'payed_at' => null,
             ],
             (object) [
                 'id' => 2,
@@ -112,6 +114,7 @@ class TempAction
                 'gender' => 'Laki-Laki',
                 'phone' => '08591236541',
                 'address' => 'Jl. Pancasila, Medan Denai',
+                'payed_at' => null,
             ],
             (object) [
                 'id' => 3,
@@ -121,6 +124,7 @@ class TempAction
                 'gender' => 'Perempuan',
                 'phone' => '08123456147',
                 'address' => 'Jl. Setia Budi No. 45A, Tanjung Sari',
+                'payed_at' => '15/02/2026 15.00 WIB',
             ],
             (object) [
                 'id' => 4,
@@ -130,6 +134,7 @@ class TempAction
                 'gender' => 'Laki-Laki',
                 'phone' => '08123456789',
                 'address' => 'Jl. Dr. Mansyur No. 78, Padang Bulan',
+                'payed_at' => '15/02/2026 15.00 WIB',
             ],
             (object) [
                 'id' => 5,
@@ -139,6 +144,7 @@ class TempAction
                 'gender' => 'Perempuan',
                 'phone' => '08123456789',
                 'address' => 'Jl. Asia No. 210, Sei Rengas II',
+                'payed_at' => '15/02/2026 15.00 WIB',
             ],
             (object) [
                 'id' => 6,
@@ -148,6 +154,7 @@ class TempAction
                 'gender' => 'Laki-Laki',
                 'phone' => '08123456789',
                 'address' => 'Jl. HM. Joni No. 33, Teladan Barat',
+                'payed_at' => '15/02/2026 15.00 WIB',
             ],
             (object) [
                 'id' => 7,
@@ -157,6 +164,7 @@ class TempAction
                 'gender' => 'Laki-Laki',
                 'phone' => '08123456789',
                 'address' => 'Jl. Kapten Muslim No. 89, Helvetia Tengah',
+                'payed_at' => '15/02/2026 15.00 WIB',
             ],
             (object) [
                 'id' => 8,
@@ -166,6 +174,7 @@ class TempAction
                 'gender' => 'Perempuan',
                 'phone' => '08123456789',
                 'address' => 'Jl. Krakatau Ujung No. 17, Pulo Brayan',
+                'payed_at' => '15/02/2026 15.00 WIB',
             ],
             (object) [
                 'id' => 9,
@@ -175,6 +184,7 @@ class TempAction
                 'gender' => 'Perempuan',
                 'phone' => '08123456789',
                 'address' => 'Jl. Yos Sudarso No. 145, Glugur Kota',
+                'payed_at' => '15/02/2026 15.00 WIB',
             ],
             (object) [
                 'id' => 10,
@@ -184,6 +194,7 @@ class TempAction
                 'gender' => 'Perempuan',
                 'phone' => '08123456789',
                 'address' => 'Jl. Brigjen Katamso No. 67, Kampung Baru',
+                'payed_at' => '15/02/2026 15.00 WIB',
             ],
         ];
     }
