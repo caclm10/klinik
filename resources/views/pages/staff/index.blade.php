@@ -2,7 +2,7 @@
     <x-ui.page-header title="Dokter/Perawat" search-placeholder="Cari nama dokter/perawat" :search-action="url('/staff')"
         :search-value="$search">
         <x-slot:actions>
-            <a href="/dokter-perawat/tambah" class="button bg-primary text-primary-foreground border-primary">
+            <a href="/staff/tambah" class="button bg-primary text-primary-foreground border-primary">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
                     <path d="M5 12h14" />
@@ -16,7 +16,7 @@
 
     @empty($staff)
         <x-ui.empty-state title="Belum Ada Data" description="Tambah data dokter/perawat untuk menampilkan data"
-            action-href="/dokter-perawat/tambah" action-label="Tambah Data" />
+            action-href="/staff/tambah" action-label="Tambah Data" />
     @endempty
 
     @isset($staff)
@@ -56,7 +56,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="/dokter-perawat/{{ $member->id }}"
+                                    <a href="/staff/{{ $member->id }}"
                                         class="button bg-primary text-primary-foreground button--sm">
                                         Detail
                                     </a>

@@ -1,6 +1,6 @@
 <x-layout.dashboard>
     <div>
-        <a href="/dokter-perawat" class="button border-transparent">
+        <a href="/staff" class="button border-transparent">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
                 <path d="m15 18-6-6 6-6" />
@@ -75,9 +75,9 @@
                         Simpan
                     </button>
 
-                    <button type="button" class="button">
+                    <a href="/staff" class="button">
                         Batal
-                    </button>
+                    </a>
                 </div>
             </div>
         </div>

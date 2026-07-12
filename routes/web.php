@@ -52,5 +52,5 @@ Route::middleware(['auth'])->group(function () {
 
     Route::get('/staff', [StaffController::class, 'index']);
     Route::get('/staff/tambah', [StaffController::class, 'create']);
-    Route::get('/staff/{id}', [StaffController::class, 'show']);
+    Route::get('/staff/{staff}', [StaffController::class, 'show']);
 });

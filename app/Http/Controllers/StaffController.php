@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\StoreStaffRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -13,9 +14,10 @@ class StaffController extends Controller
     {
         $search = $request->query('search');
 
-        $staff = User::whereHas('roles', function ($query): void {
-            $query->whereIn('name', ['dokter', 'perawat']);
-        })
+        $staff = User::with('roles')
+            ->whereHas('roles', function ($query): void {
+                $query->whereIn('name', ['dokter', 'perawat']);
+            })
             ->when($search, function ($query, $search): void {
                 $query->where(function ($query) use ($search): void {
                     $query->where('name', 'like', "%{$search}%")
@@ -38,19 +40,9 @@ class StaffController extends Controller
         return view('pages.staff.create');
     }
 
-    public function store(Request $request): RedirectResponse
+    public function store(StoreStaffRequest $request): RedirectResponse
     {
-        $validated = $request->validate([
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'email', 'unique:users,email'],
-            'password' => ['required', 'string', 'min:8'],
-            'birth_place' => ['nullable', 'string', 'max:255'],
-            'birth_date' => ['nullable', 'date'],
-            'gender' => ['nullable', 'in:L,P'],
-            'phone' => ['nullable', 'string', 'max:255'],
-            'sip' => ['nullable', 'string', 'max:255', 'unique:users,sip'],
-            'role' => ['required', 'in:dokter,perawat'],
-        ]);
+        $validated = $request->validated();
 
         $role = $validated['role'];
         unset($validated['role']);
@@ -58,15 +50,15 @@ class StaffController extends Controller
         $staff = User::create($validated);
         $staff->assign($role);
 
-        return redirect()->route('staff.index');
+        return redirect()->to("/staff/{$staff->id}")->with('success', ucfirst($role).' berhasil ditambahkan.');
     }
 
-    public function show(string $id): View
+    public function show(User $staff): View
     {
         return view('pages.staff.show', [
             'staff' => User::whereHas('roles', function ($query): void {
                 $query->whereIn('name', ['dokter', 'perawat']);
-            })->findOrFail($id),
+            })->findOrFail($staff->id),
         ]);
     }
 }
