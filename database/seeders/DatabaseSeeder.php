@@ -51,7 +51,7 @@ class DatabaseSeeder extends Seeder
             'user_id' => fn () => $practitioners[array_rand($practitioners)]->id,
         ]);
 
-        Schedule::where('status', 'selesai')->each(function (Schedule $schedule): void {
+        Schedule::query()->where('status', 'selesai')->each(function (Schedule $schedule): void {
             Transaction::factory()->create([
                 'schedule_id' => $schedule->id,
             ]);
