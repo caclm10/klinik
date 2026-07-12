@@ -30,6 +30,10 @@ class UserFactory extends Factory
             'email_verified_at' => now(),
             'password' => static::$password ??= Hash::make('password'),
             'remember_token' => Str::random(10),
+            'phone' => fake()->phoneNumber(),
+            'birth_place' => fake()->city(),
+            'birth_date' => fake()->date(),
+            'gender' => fake()->randomElement(['L', 'P']),
         ];
     }
 
@@ -40,6 +44,16 @@ class UserFactory extends Factory
     {
         return $this->state(fn (array $attributes) => [
             'email_verified_at' => null,
+        ]);
+    }
+
+    /**
+     * Indicate that the user is a practitioner (doctor or nurse).
+     */
+    public function practitioner(): static
+    {
+        return $this->state(fn (array $attributes) => [
+            'sip' => fake()->unique()->numerify('SIP##################'),
         ]);
     }
 }

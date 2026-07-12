@@ -86,9 +86,9 @@
             </li>
 
             <li>
-                <a href="/dokter-perawat"
+                <a href="/staff"
                     class="flex items-center gap-4 px-6 py-4 data-active:bg-primary data-active:text-primary-foreground rounded-2xl"
-                    @if ($req->is('dokter-perawat*')) data-active @endif>
+                    @if ($req->is('staff*')) data-active @endif>
                     <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
                         fill="none" class="size-5">
                         <circle cx="12" cy="9" r="4" stroke="currentColor" stroke-width="2" />

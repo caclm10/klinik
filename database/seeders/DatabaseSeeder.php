@@ -27,28 +27,31 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin Klinik',
             'email' => 'admin@klinik.test',
             'password' => Hash::make('password'),
+            'phone' => '081234567890',
+            'birth_place' => null,
+            'birth_date' => null,
+            'gender' => null,
+            'sip' => null,
         ]);
         $admin->assign('admin');
 
-        $dokter = User::factory()->create([
-            'name' => 'dr. Yoga Darmawan',
-            'email' => 'dokter@klinik.test',
-            'password' => Hash::make('password'),
-            'sip' => '1234567890',
-        ]);
-        $dokter->assign('dokter');
+        $practitioners = collect();
 
-        $perawat = User::factory()->create([
-            'name' => 'Sabila Nurul Putri',
-            'email' => 'perawat@klinik.test',
-            'password' => Hash::make('password'),
-        ]);
-        $perawat->assign('perawat');
+        for ($i = 0; $i < 50; $i++) {
+            $role = fake()->randomElement(['dokter', 'perawat']);
+            $title = $role === 'dokter' ? 'dr. ' : '';
 
-        $practitioners = [$dokter, $perawat];
+            $practitioner = User::factory()->practitioner()->create([
+                'name' => $title.fake()->name(),
+                'email' => fake()->unique()->safeEmail(),
+            ]);
+            $practitioner->assign($role);
+
+            $practitioners->push($practitioner);
+        }
 
         Schedule::factory(30)->create([
-            'user_id' => fn () => $practitioners[array_rand($practitioners)]->id,
+            'user_id' => fn () => $practitioners->random()->id,
         ]);
 
         Schedule::query()->where('status', 'selesai')->each(function (Schedule $schedule): void {

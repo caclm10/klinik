@@ -24,8 +24,6 @@ return new class extends Migration
             $table->enum('gender', ['L', 'P'])->nullable();
             $table->string('sip')->unique()->nullable();
 
-            $table->boolean('is_active')->default(true);
-
             $table->rememberToken();
             $table->timestamps();
         });

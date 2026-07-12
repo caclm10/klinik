@@ -10,8 +10,8 @@
             </svg>
 
             <div class="flex flex-col min-w-22">
-                <span class="font-medium text-sm">Mufqi</span>
-                <span class="text-sm text-muted-foreground">Admin</span>
+                <span class="font-medium text-sm">{{ $user->name }}</span>
+                <span class="text-sm text-muted-foreground">{{ $role->title }}</span>
             </div>
 
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -27,11 +27,16 @@
                     Pengaturan
                 </a>
 
-                <a href="/login"
-                    class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-destructive hover:bg-destructive/10">
+                <button type="submit" form="logout-form"
+                    class="flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium text-destructive hover:bg-destructive/10 cursor-pointer">
                     Keluar
-                </a>
+                </button>
             </div>
         </nav>
     </div>
 </header>
+
+<form method="POST" action="/logout" id="logout-form">
+    @csrf
+    @method('DELETE')
+</form>

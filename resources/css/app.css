@@ -45,7 +45,33 @@
     --width-sidebar: calc(var(--spacing) * 72);
 }
 
+@layer base {
+    * {
+        border-color: var(--color-border);
+    }
+}
+
 @layer components {
+    .alert {
+        @apply relative grid w-full gap-0.5 rounded-lg border px-2.5 py-2 text-left text-sm has-data-[slot=alert-action]:relative has-data-[slot=alert-action]:pr-18 has-[>svg]:grid-cols-[auto_1fr] has-[>svg]:gap-x-2 *:[svg]:row-span-2 *:[svg]:translate-y-0.5 *:[svg]:text-current *:[svg:not([class*='size-'])]:size-4;
+    }
+
+    .alert--destructive {
+        @apply bg-card text-destructive *:[alert\_\_description]:text-destructive/90 *:[svg]:text-current;
+    }
+
+    .alert--success {
+        @apply bg-card text-success *:[.alert\_\_description]:text-success/90 *:[svg]:text-current;
+    }
+
+    .alert__title {
+        @apply font-medium group-has-[>svg]/alert:col-start-2 [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground;
+    }
+
+    .alert__description {
+        @apply text-sm text-balance text-muted-foreground md:text-pretty [&_a]:underline [&_a]:underline-offset-3 [&_a]:hover:text-foreground [&_p:not(:last-child)]:mb-4;
+    }
+
     .badge {
         @apply inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3;
     }
@@ -55,7 +81,16 @@
     }
 
     .button {
-        @apply inline-flex items-center justify-center gap-2 rounded-lg font-medium px-3 h-10 text-sm border;
+        cursor: pointer;
+        @apply inline-flex items-center justify-center gap-2 rounded-lg font-medium px-3 h-10 text-sm border active:translate-y-px;
+    }
+
+    .button--primary {
+        @apply bg-primary text-primary-foreground border-primary hover:bg-primary/90;
+    }
+
+    .button--muted {
+        @apply bg-muted text-muted-foreground border-muted hover:bg-muted/90;
     }
 
     .button--sm {
@@ -68,6 +103,15 @@
 
     .button svg {
         flex-shrink: 0;
+    }
+
+    .card {
+        background-color: var(--color-white);
+        color: var(--color-foreground);
+        padding: --spacing(6);
+        border-radius: var(--radius-xl);
+
+        @apply shadow;
     }
 
     .input {

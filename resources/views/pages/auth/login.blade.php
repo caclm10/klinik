@@ -100,7 +100,7 @@
         </div>
 
         <!-- Login Card -->
-        <div class="relative bg-white w-full max-w-[480px] rounded-[20px] border border-[#1591dc] p-8 flex flex-col">
+        <div class="relative bg-white w-full max-w-120 rounded-[20px] border border-info p-8 flex flex-col">
 
             <!-- Logo -->
             <div class="flex justify-center mb-8">
@@ -109,42 +109,46 @@
 
             <!-- Keterangan -->
             <div class="mb-8">
-                <p class="text-[20px] font-semibold text-[#333333] font-[Poppins] leading-6 m-0">Halo, Selamat Datang
+                <p class="text-[20px] font-semibold text-dark font-[Poppins] leading-6 m-0">Halo, Selamat Datang
                 </p>
-                <p class="text-[16px] text-[#333333] font-[Poppins] leading-5 mt-3">Silahkan masukkan email dan password
+                <p class="text-[16px] text-dark font-[Poppins] leading-5 mt-3">Silahkan masukkan email dan password
                     anda.</p>
             </div>
 
             <!-- Form input -->
-            <div>
+            <form action="/login" method="POST" id="login-form">
+                @csrf
 
                 <!-- Username -->
                 <div class="mb-8">
-                    <label
-                        class="text-[18px] font-medium text-[#333333] font-[Poppins] block leading-[22px]">Username</label>
-                    <input type="text" placeholder="Masukkan Username anda"
-                        class="w-full text-[16px] text-[#333333] font-[Poppins] bg-transparent border-0 outline-none pt-3 pb-0 leading-5 placeholder-[#CCCCCC] px-0"
-                        style="border-bottom:1px solid #CCCCCC;">
+                    <label class="text-[18px] font-medium text-dark font-[Poppins] block leading-5.5">Username</label>
+                    <input type="text" name="email" placeholder="Masukkan Username anda"
+                        class="w-full border-0 border-b border-[#CCCCCC] bg-transparent px-0 pt-3 pb-0 text-[16px] leading-5 text-dark font-[Poppins] placeholder:text-[#CCCCCC] outline-none focus:border-info focus:ring-0">
+                    @error('email')
+                        <span class="text-destructive text-xs mt-1.5">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <!-- Password -->
                 <div>
-                    <label
-                        class="text-[18px] font-medium text-[#333333] font-[Poppins] block leading-[22px]">Password</label>
-                    <input type="password" placeholder="Masukkan Password anda"
-                        class="w-full text-[16px] text-[#333333] font-[Poppins] bg-transparent border-0 outline-none pt-3 pb-0 leading-5 placeholder-[#CCCCCC] px-0"
-                        style="border-bottom:1px solid #CCCCCC;">
+                    <label class="text-[18px] font-medium text-dark font-[Poppins] block leading-5.5">Password</label>
+                    <input type="password" name="password" placeholder="Masukkan Password anda"
+                        class="w-full border-0 border-b border-[#CCCCCC] bg-transparent px-0 pt-3 pb-0 text-[16px] leading-5 text-dark font-[Poppins] placeholder:text-[#CCCCCC] outline-none focus:border-info focus:ring-0">
+                    @error('password')
+                        <span class="text-destructive text-xs mt-1.5">{{ $message }}</span>
+                    @enderror
                 </div>
-            </div>
+            </form>
 
             <!-- Login Button -->
-            <a href="/dashboard" class="button bg-primary text-primary-foreground border-primary mt-8 text-lg">
+            <button type="submit" form="login-form"
+                class="button bg-primary text-primary-foreground border-primary mt-8 text-lg">
                 Login
-            </a>
+            </button>
 
             <!-- Lupa Password -->
             <div class="flex items-center justify-start gap-2 mt-8">
-                <span class="text-[16px] font-medium text-[#333333] font-[Poppins] leading-5">Lupa Password?</span>
+                <span class="text-[16px] font-medium text-dark font-[Poppins] leading-5">Lupa Password?</span>
                 <a href="#"
                     class="text-[16px] font-medium font-[Poppins] leading-5 text-[#0CABDE] hover:underline no-underline">Klik
                     di sini</a>
