@@ -1,4 +1,7 @@
 <x-layout.dashboard>
+    @php
+        $therapy = $patient->schedules->sortByDesc('schedule_date')->first();
+    @endphp
 
     <div>
         <a href="/data-pasien" class="button border-transparent">
@@ -9,6 +12,8 @@
             <span>Kembali</span>
         </a>
     </div>
+
+    <x-ui.alert.success />
 
     <div class="flex items-center gap-3">
         <h1 class="font-extrabold text-3xl">Detail Pasien</h1>
@@ -61,14 +66,14 @@
 
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Tempat, Tanggal Lahir</span>
-                    <span class="">{{ $patient->birth_place }}, {{ $patient->birth_date }}</span>
+                    <span class="">{{ $patient->birth_place }}, {{ $patient->birth_date?->format('d/m/Y') }}</span>
                 </div>
             </div>
 
             <div class="flex flex-col gap-6">
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Jenis Kelamin</span>
-                    <span class="">{{ $patient->gender }}</span>
+                    <span class="">{{ $patient->gender_label }}</span>
                 </div>
 
                 <div class="flex flex-col gap-1">
@@ -82,53 +87,49 @@
                 </div>
             </div>
         </div>
-
-
     </div>
 
-    <div class="bg-card shadow rounded-2xl overflow-hidden">
-        <div class="p-6 bg-foreground text-white">
-            <h2 class="text-xl font-bold text-nowrap">Terapi Terakhir</h2>
-        </div>
-
-        <div class="p-6 grid grid-cols-2 gap-4">
-            <div class="flex flex-col gap-6">
-                <div class="flex flex-col gap-1">
-                    <span class="font-semibold">Keluhan</span>
-                    <span class="">{{ $patient->therapy->complaint }}</span>
-                </div>
-
-                <div class="flex flex-col gap-1">
-                    <span class="font-semibold">Treatment</span>
-                    <span class="">{{ $patient->therapy->treatment }}</span>
-                </div>
-
-                <div class="flex flex-col gap-1">
-                    <span class="font-semibold">Jadwal</span>
-                    <span class="">{{ $patient->therapy->schedule_date }}</span>
-                </div>
+    @if ($therapy)
+        <div class="bg-card shadow rounded-2xl overflow-hidden">
+            <div class="p-6 bg-foreground text-white">
+                <h2 class="text-xl font-bold text-nowrap">Terapi Terakhir</h2>
             </div>
 
-            <div class="flex flex-col gap-6">
-                <div class="flex flex-col gap-1">
-                    <span class="font-semibold">Waktu</span>
-                    <span class="">{{ $patient->therapy->schedule_time }}</span>
+            <div class="p-6 grid grid-cols-2 gap-4">
+                <div class="flex flex-col gap-6">
+                    <div class="flex flex-col gap-1">
+                        <span class="font-semibold">Keluhan</span>
+                        <span class="">{{ $therapy->complaint }}</span>
+                    </div>
+
+                    <div class="flex flex-col gap-1">
+                        <span class="font-semibold">Treatment</span>
+                        <span class="">{{ $therapy->treatment }}</span>
+                    </div>
+
+                    <div class="flex flex-col gap-1">
+                        <span class="font-semibold">Jadwal</span>
+                        <span class="">{{ $therapy->schedule_date?->format('d/m/Y') }}</span>
+                    </div>
                 </div>
 
-                <div class="flex flex-col gap-1">
-                    <span class="font-semibold">Perawat/Dokter</span>
-                    <span class="">{{ $patient->therapy->practitioner }}</span>
-                </div>
+                <div class="flex flex-col gap-6">
+                    <div class="flex flex-col gap-1">
+                        <span class="font-semibold">Waktu</span>
+                        <span class="">{{ $therapy->start_time?->format('H:i') }} - {{ $therapy->end_time?->format('H:i') }} WIB</span>
+                    </div>
 
-                <div class="flex flex-col gap-1">
-                    <span class="font-semibold">Status</span>
-                    <span class="">{{ $patient->therapy->status }}</span>
+                    <div class="flex flex-col gap-1">
+                        <span class="font-semibold">Perawat/Dokter</span>
+                        <span class="">{{ $therapy->practitioner?->name }}</span>
+                    </div>
+
+                    <div class="flex flex-col gap-1">
+                        <span class="font-semibold">Status</span>
+                        <span class="">{{ $therapy->status }}</span>
+                    </div>
                 </div>
             </div>
         </div>
-
-
-    </div>
-
-
+    @endif
 </x-layout.dashboard>

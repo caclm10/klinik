@@ -39,7 +39,23 @@
             </div>
         </div>
     </div>
+    
 
+    <dialog id="alert-dialog" class="dialog py-0 items-center">
+        <div class="bg-white w-full max-w-lg p-6 rounded-xl flex flex-col gap-4" data-slot="box">
+            <div class="dialog__header">
+                <h3 class="text-lg font-semibold">Peringatan</h3>
+                <p class="text-sm text-muted-foreground" data-slot="message"></p>
+            </div>
+
+            <div class="dialog__footer justify-end">
+                <button type="button" commandfor="alert-dialog" command="close"
+                    class="button">Batal</button>
+
+                <button type="button" data-slot="submit" class="button button--destructive">Hapus</button>
+            </div>
+        </div>
+    </dialog>
 </body>
 
 </html>

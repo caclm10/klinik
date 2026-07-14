@@ -89,6 +89,10 @@
         @apply bg-primary text-primary-foreground border-primary hover:bg-primary/90;
     }
 
+    .button--destructive {
+        @apply bg-destructive text-destructive-foreground border-destructive hover:bg-destructive/90;
+    }
+
     .button--muted {
         @apply bg-muted text-muted-foreground border-muted hover:bg-muted/90;
     }
@@ -205,7 +209,11 @@
         @apply fixed inset-0 size-full max-w-none max-h-none py-16 bg-black/20 justify-center items-start open:flex transition-opacity duration-300 starting:open:opacity-0 open:opacity-100 opacity-0 backdrop:opacity-0 starting:open:backdrop:opacity-0 open:backdrop:opacity-1 backdrop:transition-opacity backdrop:duration-300;
     }
 
-    /* .dialog__header {} */
+    .dialog__header {
+        display: flex;
+        flex-direction: column;
+        gap: --spacing(2);
+    }
 
     .dialog__content {
         max-height: calc(100vh - 48px - 128px - 100px);
@@ -214,6 +222,7 @@
 
     .dialog__footer {
         display: flex;
+        gap: --spacing(3);
     }
 
     .account-trigger {

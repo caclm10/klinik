@@ -27,10 +27,13 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/account', [AccountController::class, 'index']);
     Route::patch('/account', [AccountController::class, 'update']);
 
-    Route::get('/data-pasien', [PatientController::class, 'index']);
-    Route::get('/data-pasien/tambah', [PatientController::class, 'create']);
-    Route::get('/data-pasien/{id}/edit', [PatientController::class, 'edit']);
-    Route::get('/data-pasien/{id}', [PatientController::class, 'show']);
+    Route::get('/data-pasien', [PatientController::class, 'index'])->name('patients.index');
+    Route::get('/data-pasien/tambah', [PatientController::class, 'create'])->name('patients.create');
+    Route::post('/data-pasien', [PatientController::class, 'store'])->name('patients.store');
+    Route::get('/data-pasien/{patient}/edit', [PatientController::class, 'edit'])->name('patients.edit');
+    Route::patch('/data-pasien/{patient}', [PatientController::class, 'update'])->name('patients.update');
+    Route::delete('/data-pasien/{patient}', [PatientController::class, 'destroy'])->name('patients.destroy');
+    Route::get('/data-pasien/{patient}', [PatientController::class, 'show'])->name('patients.show');
 
     Route::get('/jadwal-terapi', [ScheduleController::class, 'index']);
     Route::get('/jadwal-terapi/buat', [ScheduleController::class, 'create']);

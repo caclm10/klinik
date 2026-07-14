@@ -33,3 +33,37 @@ function syncPaymentTotal(form) {
 }
 
 document.querySelectorAll("[data-payment-form]").forEach(syncPaymentTotal);
+
+const alertDialog = document.getElementById("alert-dialog");
+const alertMessageElement = alertDialog.querySelector(`[data-slot="message"]`);
+const alertSubmitButton = alertDialog.querySelector(`[data-slot="submit"]`);
+
+document.querySelectorAll("[data-alert]").forEach((element) => {
+    if (alertDialog) {
+        const message = element.getAttribute("data-alert");
+
+        if (!message) {
+            return;
+        }
+
+        element.addEventListener("submit", (event) => {
+            event.preventDefault();
+
+            if (alertMessageElement) {
+                alertMessageElement.textContent = message;
+            }
+
+            alertDialog.showModal();
+        });
+
+        alertSubmitButton?.addEventListener("click", () => {
+            element.submit();
+
+            alertDialog.close();
+        });
+    } else {
+        element.addEventListener("submit", (event) => {
+            event.preventDefault();
+        });
+    }
+});
