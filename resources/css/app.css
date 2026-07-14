@@ -57,11 +57,11 @@
     }
 
     .alert--destructive {
-        @apply bg-card text-destructive *:[alert\_\_description]:text-destructive/90 *:[svg]:text-current;
+        @apply bg-destructive/10 border-destructive text-destructive *:[alert\_\_description]:text-destructive/90 *:[svg]:text-current;
     }
 
     .alert--success {
-        @apply bg-card text-success *:[.alert\_\_description]:text-success/90 *:[svg]:text-current;
+        @apply bg-success/10 border-success text-success *:[.alert\_\_description]:text-success/90 *:[svg]:text-current;
     }
 
     .alert__title {
@@ -115,8 +115,16 @@
     }
 
     .input {
-        @apply h-10 px-3 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary;
+        @apply h-10 px-3 border w-full border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary;
         background-color: var(--color-white);
+    }
+
+    .input__message {
+        @apply text-xs;
+    }
+
+    .input__message--destructive {
+        @apply text-destructive;
     }
 
     select.input {
@@ -164,20 +172,32 @@
     }
 
     /* row pertama yang BUKAN spacer */
-    .table--rounded tbody>tr:nth-child(1 of :not([data-spacer])) td:first-child {
+    .table--rounded
+        tbody
+        > tr:nth-child(1 of :not([data-spacer]))
+        td:first-child {
         border-top-left-radius: var(--table-radius);
     }
 
-    .table--rounded tbody>tr:nth-child(1 of :not([data-spacer])) td:last-child {
+    .table--rounded
+        tbody
+        > tr:nth-child(1 of :not([data-spacer]))
+        td:last-child {
         border-top-right-radius: var(--table-radius);
     }
 
     /* row terakhir yang BUKAN spacer */
-    .table--rounded tbody>tr:nth-last-child(1 of :not([data-spacer])) td:first-child {
+    .table--rounded
+        tbody
+        > tr:nth-last-child(1 of :not([data-spacer]))
+        td:first-child {
         border-bottom-left-radius: var(--table-radius);
     }
 
-    .table--rounded tbody>tr:nth-last-child(1 of :not([data-spacer])) td:last-child {
+    .table--rounded
+        tbody
+        > tr:nth-last-child(1 of :not([data-spacer]))
+        td:last-child {
         border-bottom-right-radius: var(--table-radius);
     }
 
@@ -185,9 +205,15 @@
         @apply fixed inset-0 size-full max-w-none max-h-none py-16 bg-black/20 justify-center items-start open:flex transition-opacity duration-300 starting:open:opacity-0 open:opacity-100 opacity-0 backdrop:opacity-0 starting:open:backdrop:opacity-0 open:backdrop:opacity-1 backdrop:transition-opacity backdrop:duration-300;
     }
 
-    .dialog [data-slot="content"] {
+    /* .dialog__header {} */
+
+    .dialog__content {
         max-height: calc(100vh - 48px - 128px - 100px);
         overflow-y: auto;
+    }
+
+    .dialog__footer {
+        display: flex;
     }
 
     .account-trigger {

@@ -101,11 +101,11 @@
 
     <dialog id="dialog-pilih-pasien" class="dialog">
         <div class="bg-white w-full max-w-2xl p-6 rounded-xl flex flex-col gap-4" data-slot="box">
-            <div data-slot="header">
+            <div class="dialog__header">
                 <h3 class="text-lg font-semibold">Pilih Pasien</h3>
             </div>
 
-            <div data-slot="content">
+            <div class="dialog__content">
                 <div class="flex justify-end pt-1 pr-1">
                     <div class="relative">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
@@ -182,7 +182,7 @@
                 </div>
             </div>
 
-            <div data-slot="footer" class="flex justify-end">
+            <div class="dialog__footer justify-end">
                 <button type="button" commandfor="dialog-pilih-pasien" command="close"
                     class="button">Close</button>
             </div>

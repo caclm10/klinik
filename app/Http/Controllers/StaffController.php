@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStaffRequest;
+use App\Http\Requests\UpdateStaffRequest;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -26,6 +27,7 @@ class StaffController extends Controller
                         ->orWhere('sip', 'like', "%{$search}%");
                 });
             })
+            ->orderBy('name')
             ->paginate(10)
             ->withQueryString();
 
@@ -60,5 +62,33 @@ class StaffController extends Controller
                 $query->whereIn('name', ['dokter', 'perawat']);
             })->findOrFail($staff->id),
         ]);
+    }
+
+    public function edit(User $staff): View
+    {
+        return view('pages.staff.edit', [
+            'staff' => User::whereHas('roles', function ($query): void {
+                $query->whereIn('name', ['dokter', 'perawat']);
+            })->findOrFail($staff->id),
+        ]);
+    }
+
+    public function update(UpdateStaffRequest $request, User $staff): RedirectResponse
+    {
+        $validated = $request->validated();
+
+        $role = $validated['role'];
+        unset($validated['role']);
+
+        if (empty($validated['password'])) {
+            unset($validated['password']);
+        }
+
+        $staff->update($validated);
+
+        $staff->roles()->detach();
+        $staff->assign($role);
+
+        return redirect()->to("/staff/{$staff->id}")->with('success', ucfirst($role).' berhasil diperbarui.');
     }
 }

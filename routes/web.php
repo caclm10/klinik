@@ -50,7 +50,10 @@ Route::middleware(['auth'])->group(function () {
         ]);
     Route::get('/kasir/{id}', [CashierTransactionController::class, 'show']);
 
-    Route::get('/staff', [StaffController::class, 'index']);
-    Route::get('/staff/tambah', [StaffController::class, 'create']);
-    Route::get('/staff/{staff}', [StaffController::class, 'show']);
+    Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
+    Route::get('/staff/tambah', [StaffController::class, 'create'])->name('staff.create');
+    Route::post('/staff', [StaffController::class, 'store'])->name('staff.store');
+    Route::get('/staff/{staff}/edit', [StaffController::class, 'edit'])->name('staff.edit');
+    Route::patch('/staff/{staff}', [StaffController::class, 'update'])->name('staff.update');
+    Route::get('/staff/{staff}', [StaffController::class, 'show'])->name('staff.show');
 });

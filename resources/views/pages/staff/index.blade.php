@@ -56,8 +56,7 @@
                                     </span>
                                 </td>
                                 <td>
-                                    <a href="/staff/{{ $member->id }}"
-                                        class="button bg-primary text-primary-foreground button--sm">
+                                    <a href="/staff/{{ $member->id }}" class="button button--primary button--sm">
                                         Detail
                                     </a>
                                 </td>

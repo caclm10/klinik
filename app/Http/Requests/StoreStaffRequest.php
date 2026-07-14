@@ -12,7 +12,7 @@ class StoreStaffRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -26,9 +26,9 @@ class StoreStaffRequest extends FormRequest
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'email', 'unique:users,email'],
             'password' => ['required', 'string', 'min:8'],
-            'birth_place' => ['nullable', 'string', 'max:255'],
-            'birth_date' => ['nullable', 'date'],
-            'gender' => ['nullable', 'in:L,P'],
+            'birth_place' => ['required', 'string', 'max:255'],
+            'birth_date' => ['required', 'date'],
+            'gender' => ['required', 'in:L,P'],
             'phone' => ['nullable', 'string', 'max:255'],
             'sip' => ['nullable', 'string', 'max:255', 'unique:users,sip'],
             'role' => ['required', 'in:dokter,perawat'],

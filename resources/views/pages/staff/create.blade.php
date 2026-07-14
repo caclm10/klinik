@@ -13,61 +13,102 @@
 
     <div class="flex justify-center">
         <div class="bg-white border border-foreground rounded-xl shadow-lg p-6 max-w-xl w-full">
-            <div class="flex flex-col gap-6">
+            <form action="{{ route('staff.store') }}" method="POST" class="flex flex-col gap-6">
+                @csrf
+
                 <div class="grid">
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium">Nama Lengkap</label>
-                        <input type="text" placeholder="Masukkan nama lengkap" class="input">
+                        <label for="name" class="text-[18px] font-medium">Nama Lengkap</label>
+                        <input type="text" id="name" name="name" value="{{ old('name') }}"
+                            placeholder="Masukkan nama lengkap" class="input">
+                        @error('name')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium">Tempat Lahir</label>
-                        <input type="text" placeholder="Contoh Medan" class="input">
+                        <label for="birth_place" class="text-[18px] font-medium">Tempat Lahir</label>
+                        <input type="text" id="birth_place" name="birth_place" value="{{ old('birth_place') }}"
+                            placeholder="Contoh Medan" class="input">
+                        @error('birth_place')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium">Tgl Lahir</label>
-                        <input type="date" class="input">
+                        <label for="birth_date" class="text-[18px] font-medium">Tgl Lahir</label>
+                        <input type="date" id="birth_date" name="birth_date" value="{{ old('birth_date') }}"
+                            class="input" placeholder="Contoh 2000-01-01">
+                        @error('birth_date')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium">Jenis Kelamin</label>
+                        <label for="gender" class="text-[18px] font-medium">Jenis Kelamin</label>
                         <select name="gender" id="gender" class="input">
-                            <option value="" disabled selected>Pilih</option>
-                            <option value="Laki-laki">Laki-laki</option>
-                            <option value="Perempuan">Perempuan</option>
+                            <option value="" disabled {{ old('gender') ? '' : 'selected' }}>Pilih</option>
+                            <option value="L" {{ old('gender') === 'L' ? 'selected' : '' }}>Laki-laki</option>
+                            <option value="P" {{ old('gender') === 'P' ? 'selected' : '' }}>Perempuan</option>
                         </select>
+                        @error('gender')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium">Status (Dokter/ Perawat)</label>
-                        <select name="status" id="status" class="input">
-                            <option value="" disabled selected>Pilih</option>
-                            <option value="Dokter">Dokter</option>
-                            <option value="Perawat">Perawat</option>
+                        <label for="role" class="text-[18px] font-medium">Status (Dokter/ Perawat)</label>
+                        <select name="role" id="role" class="input">
+                            <option value="" disabled {{ old('role') ? '' : 'selected' }}>Pilih</option>
+                            <option value="dokter" {{ old('role') === 'dokter' ? 'selected' : '' }}>Dokter</option>
+                            <option value="perawat" {{ old('role') === 'perawat' ? 'selected' : '' }}>Perawat</option>
                         </select>
+                        @error('role')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium">No. Hp</label>
-                        <input type="text" placeholder="Contoh 08123456789" class="input">
+                        <label for="phone" class="text-[18px] font-medium">No. Hp</label>
+                        <input type="text" id="phone" name="phone" value="{{ old('phone') }}"
+                            placeholder="Contoh 08123456789" class="input">
+                        @error('phone')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium">Email</label>
-                        <input type="email" placeholder="Contoh genqi@gmail.com" class="input">
+                        <label for="email" class="text-[18px] font-medium">Email</label>
+                        <input type="text" id="email" name="email" value="{{ old('email') }}"
+                            placeholder="Contoh genqi@gmail.com" class="input">
+                        @error('email')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[18px] font-medium">Nomor SIP</label>
-                    <input type="text" placeholder="Masukkan nomor SIP (Surat Izin Praktik)" class="input">
+                    <label for="password" class="text-[18px] font-medium">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Masukkan password"
+                        class="input">
+                    @error('password')
+                        <span class="input__message input__message--destructive">{{ $message }}</span>
+                    @enderror
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="sip" class="text-[18px] font-medium">Nomor SIP</label>
+                    <input type="text" id="sip" name="sip" value="{{ old('sip') }}"
+                        placeholder="Masukkan nomor SIP (Surat Izin Praktik)" class="input">
+                    @error('sip')
+                        <span class="input__message input__message--destructive">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="flex flex-col gap-3">
@@ -79,7 +120,7 @@
                         Batal
                     </a>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 </x-layout.dashboard>
