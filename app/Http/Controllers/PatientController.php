@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
+use App\Http\Resources\PatientResource;
 use App\Models\Patient;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 use Illuminate\View\View;
 
 class PatientController extends Controller
 {
-    public function index(Request $request): View
+    public function index(Request $request): View|AnonymousResourceCollection|JsonResponse
     {
         $search = $request->query('search');
 
@@ -22,12 +25,14 @@ class PatientController extends Controller
                         ->orWhere('phone', 'like', "%{$search}%")
                         ->orWhere('address', 'like', "%{$search}%");
                 });
-            })
-            ->paginate(10)
-            ->withQueryString();
+            });
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return PatientResource::collection($patients->paginate(5));
+        }
 
         return view('pages.patients.index', [
-            'patients' => $patients,
+            'patients' => $patients->paginate(10)->withQueryString(),
             'search' => $search,
         ]);
     }

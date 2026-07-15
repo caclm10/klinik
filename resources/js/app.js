@@ -1,3 +1,5 @@
+import Alpine from "alpinejs";
+
 const currencyFormatter = new Intl.NumberFormat("id-ID");
 
 function formatRupiah(value) {
@@ -67,3 +69,65 @@ document.querySelectorAll("[data-alert]").forEach((element) => {
         });
     }
 });
+
+const dialogPilihPasien = document.getElementById("dialog-pilih-pasien");
+
+if (dialogPilihPasien) {
+    dialogPilihPasien.addEventListener("command", async (event) => {
+        if (event.command !== "show-modal") return;
+
+        const response = await fetch("/data-pasien", {
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+        });
+        const data = await response.json();
+
+        console.log(data);
+    });
+}
+
+Alpine.data("patientPicker", () => {
+    async function fetchPatients(page = 1, search = "") {
+        const url = `/data-pasien?search=${encodeURIComponent(search)}&page=${page}`;
+
+        const response = await fetch(url, {
+            headers: { "X-Requested-With": "XMLHttpRequest" },
+        });
+        const data = await response.json();
+
+        return data;
+    }
+    return {
+        paginator: {
+            data: [],
+            links: [],
+            meta: {},
+        },
+        pasien: [],
+        selectedPatientId: "",
+        selectedPatientName: "",
+        data: null,
+
+        get paginationInfo() {
+            return `${this.paginator.meta.from} - ${this.paginator.meta.to} dari ${this.paginator.meta.total} Data`;
+        },
+
+        async open() {
+            this.$refs.dialog.showModal();
+
+            this.paginator = await fetchPatients();
+
+            console.log(this.paginator);
+        },
+
+        close() {
+            this.$refs.dialog.close();
+        },
+
+        async goToPage(page) {
+            if (page < 1 || page > this.paginator.meta.last_page) return;
+            this.paginator = await fetchPatients(page);
+        },
+    };
+});
+
+Alpine.start();

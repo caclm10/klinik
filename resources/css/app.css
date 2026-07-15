@@ -49,6 +49,11 @@
     * {
         border-color: var(--color-border);
     }
+
+    body:has(dialog[open]) {
+        overflow: hidden;
+        padding-right: var(--scrollbar-width, 0px);
+    }
 }
 
 @layer components {
@@ -107,6 +112,11 @@
 
     .button svg {
         flex-shrink: 0;
+    }
+
+    .button:disabled {
+        opacity: 0.5;
+        pointer-events: none;
     }
 
     .card {
