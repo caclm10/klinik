@@ -85,9 +85,11 @@ if (dialogPilihPasien) {
     });
 }
 
-Alpine.data("patientPicker", () => {
-    async function fetchPatients(page = 1, search = "") {
-        const url = `/data-pasien?search=${encodeURIComponent(search)}&page=${page}`;
+Alpine.data("entityPicker", (path) => {
+    console.log("Entity Picker Path:", path);
+
+    async function fetchData(page = 1, search = "") {
+        const url = `/${path}?search=${encodeURIComponent(search)}&page=${page}`;
 
         const response = await fetch(url, {
             headers: { "X-Requested-With": "XMLHttpRequest" },
@@ -96,15 +98,16 @@ Alpine.data("patientPicker", () => {
 
         return data;
     }
+
     return {
         paginator: {
             data: [],
             links: [],
             meta: {},
         },
-        pasien: [],
-        selectedPatientId: "",
-        selectedPatientName: "",
+        items: [],
+        selectedItemId: "",
+        selectedItemName: "",
         data: null,
 
         get paginationInfo() {
@@ -114,7 +117,7 @@ Alpine.data("patientPicker", () => {
         async open() {
             this.$refs.dialog.showModal();
 
-            this.paginator = await fetchPatients();
+            this.paginator = await fetchData();
 
             console.log(this.paginator);
         },
@@ -125,7 +128,13 @@ Alpine.data("patientPicker", () => {
 
         async goToPage(page) {
             if (page < 1 || page > this.paginator.meta.last_page) return;
-            this.paginator = await fetchPatients(page);
+            this.paginator = await fetchData(page);
+        },
+
+        selectItem(item) {
+            this.selectedItemId = item.id;
+            this.selectedItemName = item.name;
+            this.close();
         },
     };
 });

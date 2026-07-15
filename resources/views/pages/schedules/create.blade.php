@@ -23,14 +23,13 @@
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[18px] font-medium ">Pasien</label>
 
-                        <div class="flex items-center gap-2" x-data="patientPicker">
-                            <input type="hidden" name="patient_id" x-model="selectedPatientId">
-                            <input type="text" x-model="selectedPatientName" placeholder="Pilih pasien" readonly
+                        <div class="flex items-center gap-2" x-data="entityPicker('data-pasien')">
+                            <input type="hidden" name="patient_id" x-model="selectedItemId">
+                            <input type="text" x-model="selectedItemName" placeholder="Pilih pasien" readonly
                                 class="input grow">
 
                             <div>
-                                <button type="button" class="button bg-primary text-primary-foreground border-primary"
-                                    @click="open()">
+                                <button type="button" class="button button--primary-outline" @click="open()">
                                     Cari
                                 </button>
                             </div>
@@ -73,18 +72,19 @@
                                                         <td colspan="99" class="h-3 p-0"></td>
                                                     </tr>
 
-                                                    <template x-for="(patient, index) in paginator.data"
-                                                        :key="patient.id">
+                                                    <template x-for="(items, index) in paginator.data"
+                                                        :key="items.id">
                                                         <tr class="bg-white even:bg-muted">
                                                             <td class="text-center"
                                                                 x-text="paginator.meta.from + index">
                                                             </td>
-                                                            <td x-text="patient.name"></td>
-                                                            <td x-text="patient.birthDate"></td>
-                                                            <td x-text="patient.gender"></td>
+                                                            <td x-text="items.name"></td>
+                                                            <td x-text="items.birthDate"></td>
+                                                            <td x-text="items.gender"></td>
                                                             <td>
                                                                 <button type="button"
-                                                                    class="button bg-primary button--primary button--sm">
+                                                                    class="button bg-primary button--primary button--sm"
+                                                                    @click="selectItem(items)">
                                                                     Pilih
                                                                 </button>
                                                             </td>
@@ -155,17 +155,7 @@
                 <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[18px] font-medium ">Jadwal</label>
-                        <div
-                            class="flex items-center justify-between w-full h-10 px-3 border border-border rounded-md">
-                            <span class="text-[14px] ">Hr/Bln/Thn</span>
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none">
-                                <path d="M3 9h18M9 3v4m6-4v4" stroke="#737791" stroke-width="2"
-                                    stroke-linecap="round" />
-                                <rect x="3" y="5" width="18" height="16" rx="2" stroke="#737791"
-                                    stroke-width="2" />
-                            </svg>
-                        </div>
+                        <input type="date" class="input">
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[18px] font-medium ">Waktu</label>
@@ -174,15 +164,120 @@
                 </div>
 
                 {{-- Row 7: Dokter/Perawat + Status --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium ">Dokter/ Perawat</label>
-                        <input type="text" placeholder="Contoh dr.Yoga" class="input">
+                <div class="flex flex-col gap-1.5" x-data="entityPicker('staff')">
+                    <label class="text-[18px] font-medium ">Dokter/ Perawat</label>
+                    <div class="flex items-center gap-2">
+                        <input type="hidden" name="staff_id" x-model="selectedItemId">
+                        <input type="text" x-model="selectedItemName" placeholder="Pilih dokter/perawat" readonly
+                            class="input grow">
+
+                        <button type="button" class="button button--primary-outline" @click="open">
+                            Cari
+                        </button>
+
+                        <dialog x-ref="dialog" class="dialog">
+                            <div class="bg-white w-full max-w-2xl p-6 rounded-xl flex flex-col gap-4" data-slot="box">
+                                <div class="dialog__header">
+                                    <h3 class="text-lg font-semibold">Pilih Dokter/Perawat</h3>
+                                </div>
+
+                                <div class="dialog__content">
+                                    <div class="flex justify-end pt-1 pr-1">
+                                        <div class="relative">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground">
+                                                <path d="m21 21-4.34-4.34" />
+                                                <circle cx="11" cy="11" r="8" />
+                                            </svg>
+                                            <input type="search" placeholder="Cari nama dokter/perawat"
+                                                class="pl-10 h-10 px-3 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary" />
+                                        </div>
+                                    </div>
+                                    <div class="overflow-x-auto py-2">
+                                        <table class="table table--rounded">
+                                            <thead>
+                                                <tr>
+                                                    <th>ID</th>
+                                                    <th>Nama Dokter/Perawat</th>
+                                                    <th>Tgl Lahir</th>
+                                                    <th>Jenis Kelamin</th>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr data-spacer>
+                                                    <td colspan="99" class="h-3 p-0"></td>
+                                                </tr>
+
+                                                <template x-for="(items, index) in paginator.data"
+                                                    :key="items.id">
+                                                    <tr class="bg-white even:bg-muted">
+                                                        <td class="text-center" x-text="paginator.meta.from + index">
+                                                        </td>
+                                                        <td x-text="items.name"></td>
+                                                        <td x-text="items.birthDate"></td>
+                                                        <td x-text="items.gender"></td>
+                                                        <td>
+                                                            <button type="button"
+                                                                class="button bg-primary button--primary button--sm"
+                                                                @click="selectItem(items)">
+                                                                Pilih
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-muted-foreground text-xs" x-text="paginationInfo">
+
+                                        </p>
+
+                                        <div class="flex items-center gap-2">
+                                            <button type="button" class="button button--icon"
+                                                :disabled="paginator.meta.current_page === 1"
+                                                @click="goToPage(paginator.meta.current_page - 1)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="size-4">
+                                                    <path d="m15 18-6-6 6-6" />
+                                                </svg>
+                                            </button>
+
+                                            <span class="text-muted-foreground text-xs"
+                                                x-text="`${paginator.meta.current_page} of ${paginator.meta.last_page}`"></span>
+
+                                            <button type="button" class="button button--icon"
+                                                :disabled="paginator.meta.current_page === paginator.meta.last_page"
+                                                @click="goToPage(paginator.meta.current_page + 1)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="size-4">
+                                                    <path d="m9 18 6-6-6-6" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="dialog__footer justify-end">
+                                    <button type="button" class="button" @click="close()">Close</button>
+                                </div>
+                            </div>
+                        </dialog>
                     </div>
-                    <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium ">Status</label>
-                        <input type="text" placeholder="Contoh Selesai" class="input">
-                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label class="text-[18px] font-medium ">Status</label>
+                    <input type="text" placeholder="Contoh Selesai" class="input">
                 </div>
 
                 {{-- Row 8: Buttons --}}

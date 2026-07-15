@@ -4,14 +4,17 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreStaffRequest;
 use App\Http\Requests\UpdateStaffRequest;
+use App\Http\Resources\StaffResource;
 use App\Models\User;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\JsonResponse;
 
 class StaffController extends Controller
 {
-    public function index(Request $request): View
+    public function index(Request $request): View|AnonymousResourceCollection|JsonResponse
     {
         $search = $request->query('search');
 
@@ -27,12 +30,14 @@ class StaffController extends Controller
                         ->orWhere('sip', 'like', "%{$search}%");
                 });
             })
-            ->orderBy('name')
-            ->paginate(10)
-            ->withQueryString();
+            ->orderBy('name');
+
+        if ($request->ajax() || $request->wantsJson()) {
+            return StaffResource::collection($staff->paginate(5));
+        }
 
         return view('pages.staff.index', [
-            'staff' => $staff,
+            'staff' => $staff->paginate(10)->withQueryString(),
             'search' => $search,
         ]);
     }
