@@ -55,9 +55,11 @@ class DatabaseSeeder extends Seeder
         ]);
 
         Schedule::query()->where('status', 'selesai')->each(function (Schedule $schedule): void {
-            Transaction::factory()->create([
-                'schedule_id' => $schedule->id,
-            ]);
+            if (fake()->boolean(60)) {
+                Transaction::factory()->create([
+                    'schedule_id' => $schedule->id,
+                ]);
+            }
         });
     }
 }

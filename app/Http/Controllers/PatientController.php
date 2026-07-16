@@ -56,7 +56,7 @@ class PatientController extends Controller
     public function show(Patient $patient): View
     {
         return view('pages.patients.show', [
-            'patient' => $patient->load(['schedules.practitioner', 'schedules.treatment']),
+            'patient' => $patient->load(['schedules.practitioner']),
         ]);
     }
 

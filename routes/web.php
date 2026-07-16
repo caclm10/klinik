@@ -48,13 +48,14 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/jadwal-terapi/{schedule}', [ScheduleController::class, 'destroy'])->name('schedules.destroy');
     Route::get('/jadwal-terapi/{schedule}', [ScheduleController::class, 'show'])->name('schedules.show');
 
-    Route::get('/kasir', [CashierTransactionController::class, 'index']);
+    Route::get('/kasir', [CashierTransactionController::class, 'index'])->name('cashier.index');
     Route::get('/kasir/{month}-{year}', [CashierTransactionController::class, 'indexByMonth'])
         ->where([
             'month' => '0?[1-9]|1[0-2]',
             'year' => '20[0-9]{2}',
-        ]);
-    Route::get('/kasir/{id}', [CashierTransactionController::class, 'show']);
+        ])->name('cashier.month');
+    Route::get('/kasir/{schedule}', [CashierTransactionController::class, 'show'])->name('cashier.show');
+    Route::post('/kasir/{schedule}', [CashierTransactionController::class, 'store'])->name('cashier.store');
 
     Route::get('/staff', [StaffController::class, 'index'])->name('staff.index');
     Route::get('/staff/tambah', [StaffController::class, 'create'])->name('staff.create');
