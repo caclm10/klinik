@@ -15,7 +15,7 @@
     <x-ui.alert.success />
 
     @if ($schedules->isEmpty())
-        <x-ui.empty-state title="Belum Ada Data" description="Tidak ada jadwal selesai pada bulan ini." />
+        <x-ui.empty-state title="Belum Ada Data" description="Tidak ada jadwal terapi pada bulan ini." />
     @else
         <div class="flex flex-col gap-4">
             <div class="overflow-x-auto py-2">

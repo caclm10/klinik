@@ -18,7 +18,6 @@ class CashierTransactionController extends Controller
 
         $months = Schedule::query()
             ->selectRaw('YEAR(schedule_date) as year, MONTH(schedule_date) as month, COUNT(*) as total')
-            ->where('status', 'selesai')
             ->when($search, function ($query, $search): void {
                 $query->whereHas('patient', function ($query) use ($search): void {
                     $query->where('name', 'like', "%{$search}%");
@@ -46,7 +45,6 @@ class CashierTransactionController extends Controller
     public function indexByMonth(Request $request, string $month, string $year): View
     {
         $schedules = Schedule::with(['patient', 'practitioner', 'transaction'])
-            ->where('status', 'selesai')
             ->whereMonth('schedule_date', $month)
             ->whereYear('schedule_date', $year)
             ->when($request->query('search'), function ($query, $search): void {

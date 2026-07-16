@@ -33,4 +33,11 @@ class UpdateScheduleRequest extends FormRequest
             'status' => ['required', 'in:menunggu,selesai'],
         ];
     }
+
+    public function attributes(): array
+    {
+        return [
+            'user_id' => 'dokter/perawat',
+        ];
+    }
 }

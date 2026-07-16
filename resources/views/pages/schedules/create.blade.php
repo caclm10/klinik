@@ -131,6 +131,10 @@
                                 </div>
                             </dialog>
                         </div>
+
+                        @error('patient_id')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
 
                 </div>
@@ -140,12 +144,18 @@
                     <label for="complaint" class="text-[18px] font-medium">Keluhan</label>
                     <input type="text" id="complaint" name="complaint" value="{{ old('complaint') }}"
                         placeholder="Contoh Stroke" class="input">
+                    @error('complaint')
+                        <span class="input__message input__message--destructive">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="flex flex-col gap-1.5">
                     <label for="treatment" class="text-[18px] font-medium">Treatment</label>
                     <input type="text" id="treatment" name="treatment" value="{{ old('treatment') }}"
                         placeholder="Contoh Terapi Stroke" class="input">
+                    @error('treatment')
+                        <span class="input__message input__message--destructive">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -153,16 +163,25 @@
                         <label for="schedule_date" class="text-[18px] font-medium">Jadwal</label>
                         <input type="date" id="schedule_date" name="schedule_date"
                             value="{{ old('schedule_date') }}" class="input">
+                        @error('schedule_date')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <label for="start_time" class="text-[18px] font-medium">Waktu Mulai</label>
                         <input type="time" id="start_time" name="start_time" value="{{ old('start_time') }}"
                             placeholder="Masukkan waktu mulai" class="input">
+                        @error('start_time')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <label for="end_time" class="text-[18px] font-medium">Waktu Selesai</label>
                         <input type="time" id="end_time" name="end_time" value="{{ old('end_time') }}"
                             placeholder="Masukkan waktu selesai" class="input">
+                        @error('end_time')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
@@ -282,16 +301,24 @@
                                 </div>
                             </div>
                         </dialog>
+
                     </div>
+                    @error('user_id')
+                        <span class="input__message input__message--destructive">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="flex flex-col gap-1.5">
                     <label for="status" class="text-[18px] font-medium">Status</label>
                     <select name="status" id="status" class="input">
                         <option value="" disabled {{ old('status') ? '' : 'selected' }}>Pilih</option>
-                        <option value="menunggu" {{ old('status') === 'menunggu' ? 'selected' : '' }}>Menunggu</option>
+                        <option value="menunggu" {{ old('status') === 'menunggu' ? 'selected' : '' }}>Menunggu
+                        </option>
                         <option value="selesai" {{ old('status') === 'selesai' ? 'selected' : '' }}>Selesai</option>
                     </select>
+                    @error('status')
+                        <span class="input__message input__message--destructive">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="flex flex-col gap-3">

@@ -111,31 +111,48 @@
                         <div class="flex flex-col gap-2">
                             <label for="payment_method" class="font-semibold">Metode Pembayaran</label>
                             <input id="payment_method" name="payment_method" type="text"
+                                value="{{ old('payment_method') }}"
                                 placeholder="Contoh: Tunai, Transfer, QRIS" class="input" />
+                            @error('payment_method')
+                                <span class="input__message input__message--destructive">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="flex flex-col gap-2">
                             <label for="amount" class="font-semibold">Nominal</label>
                             <input id="amount" name="amount" type="text" inputmode="numeric" pattern="[0-9]*"
-                                autocomplete="off" placeholder="Contoh: 150000" data-payment-amount class="input" />
+                                autocomplete="off" placeholder="Contoh: 150000" data-payment-amount class="input"
+                                value="{{ old('amount') }}" />
+                            @error('amount')
+                                <span class="input__message input__message--destructive">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="flex flex-col gap-2">
                             <label for="paid_by" class="font-semibold">Dibayar Oleh</label>
                             <input id="paid_by" name="paid_by" type="text" placeholder="Nama pembayar"
-                                class="input" />
+                                class="input" value="{{ old('paid_by') }}" />
+                            @error('paid_by')
+                                <span class="input__message input__message--destructive">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="flex flex-col gap-2">
                             <label for="paid_at" class="font-semibold">Waktu Pembayaran</label>
                             <input id="paid_at" name="paid_at" type="datetime-local"
-                                value="{{ now()->format('Y-m-d\\TH:i') }}" class="input" />
+                                value="{{ old('paid_at', now()->format('Y-m-d\\TH:i')) }}" class="input" />
+                            @error('paid_at')
+                                <span class="input__message input__message--destructive">{{ $message }}</span>
+                            @enderror
                         </div>
 
                         <div class="flex flex-col gap-2 md:col-span-2">
                             <label for="note" class="font-semibold">Catatan</label>
                             <textarea id="note" name="note" rows="4" placeholder="Tulis catatan tambahan bila ada"
-                                class="px-3 py-2 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary"></textarea>
+                                class="px-3 py-2 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary">{{ old('note') }}</textarea>
+                            @error('note')
+                                <span class="input__message input__message--destructive">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 

@@ -284,5 +284,12 @@ return [
         'winner' => 'pemenang',
         'work' => 'pekerjaan',
         'year' => 'tahun',
+
+        // app
+        'patient_id' => 'pasien',
+        'end_time' => 'waktu selesai',
+        'start_time' => 'waktu mulai',
+        'complaint' => 'keluhan',
+        'schedule_date' => 'jadwal',
     ],
 ];

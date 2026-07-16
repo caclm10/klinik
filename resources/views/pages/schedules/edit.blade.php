@@ -132,6 +132,10 @@
                                     </div>
                                 </div>
                             </dialog>
+
+                            @error('patient_id')
+                                <span class="input__message input__message--destructive">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
@@ -143,6 +147,9 @@
                     <input type="text" id="complaint" name="complaint"
                         value="{{ old('complaint', $schedule->complaint) }}" placeholder="Contoh Stroke"
                         class="input">
+                    @error('complaint')
+                        <span class="input__message input__message--destructive">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="flex flex-col gap-1.5">
@@ -150,6 +157,9 @@
                     <input type="text" id="treatment" name="treatment"
                         value="{{ old('treatment', $schedule->treatment) }}" placeholder="Contoh Terapi Stroke"
                         class="input">
+                    @error('treatment')
+                        <span class="input__message input__message--destructive">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -158,18 +168,27 @@
                         <input type="date" id="schedule_date" name="schedule_date"
                             value="{{ old('schedule_date', $schedule->schedule_date->format('Y-m-d')) }}"
                             class="input">
+                        @error('schedule_date')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <label for="start_time" class="text-[18px] font-medium">Waktu Mulai</label>
                         <input type="time" id="start_time" name="start_time"
                             value="{{ old('start_time', $schedule->start_time->format('H:i')) }}"
                             placeholder="Masukkan waktu mulai" class="input">
+                        @error('start_time')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                     <div class="flex flex-col gap-1.5">
                         <label for="end_time" class="text-[18px] font-medium">Waktu Selesai</label>
                         <input type="time" id="end_time" name="end_time"
                             value="{{ old('end_time', $schedule->end_time->format('H:i')) }}"
                             placeholder="Masukkan waktu selesai" class="input">
+                        @error('end_time')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
@@ -289,6 +308,10 @@
                                 </div>
                             </div>
                         </dialog>
+
+                        @error('user_id')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
                 </div>
 
@@ -302,6 +325,9 @@
                         <option value="selesai"
                             {{ old('status', $schedule->status) === 'selesai' ? 'selected' : '' }}>Selesai</option>
                     </select>
+                    @error('status')
+                        <span class="input__message input__message--destructive">{{ $message }}</span>
+                    @enderror
                 </div>
 
                 <div class="flex flex-col gap-3">

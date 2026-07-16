@@ -122,7 +122,7 @@
                 <!-- Username -->
                 <div class="mb-8">
                     <label class="text-[18px] font-medium text-dark font-[Poppins] block leading-5.5">Username</label>
-                    <input type="text" name="email" placeholder="Masukkan Username anda"
+                    <input type="text" name="email" value="{{ old('email') }}" placeholder="Masukkan Username anda"
                         class="w-full border-0 border-b border-[#CCCCCC] bg-transparent px-0 pt-3 pb-0 text-[16px] leading-5 text-dark font-[Poppins] placeholder:text-[#CCCCCC] outline-none focus:border-info focus:ring-0">
                     @error('email')
                         <span class="text-destructive text-xs mt-1.5">{{ $message }}</span>

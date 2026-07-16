@@ -23,12 +23,18 @@
                         <div class="flex flex-col gap-1.5">
                             <label class="text-[18px] font-medium">Nama Admin</label>
                             <input type="text" name="name" value="{{ old('name', $user->name) }}" class="input">
+                            @error('name')
+                                <span class="input__message input__message--destructive">{{ $message }}</span>
+                            @enderror
                         </div>
                     </div>
 
                     <div class="flex flex-col gap-1.5">
                         <label class="text-[18px] font-medium">Email</label>
                         <input type="email" name="email" value="{{ old('email', $user->email) }}" class="input">
+                        @error('email')
+                            <span class="input__message input__message--destructive">{{ $message }}</span>
+                        @enderror
                     </div>
 
                     {{-- <div class="flex flex-col gap-1.5">
