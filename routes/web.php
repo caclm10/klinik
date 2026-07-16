@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CashierTransactionController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PatientController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SessionController;
@@ -20,9 +21,7 @@ Route::middleware(['guest'])->group(function () {
 
 Route::middleware(['auth'])->group(function () {
     Route::delete('/logout', [SessionController::class, 'destroy'])->name('logout');
-    Route::get('/dashboard', function () {
-        return view('pages.dashboard');
-    });
+    Route::get('/dashboard', [DashboardController::class, 'index']);
 
     Route::get('/account', [AccountController::class, 'index']);
     Route::patch('/account', [AccountController::class, 'update']);

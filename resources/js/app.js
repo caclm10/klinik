@@ -1,4 +1,7 @@
 import Alpine from "alpinejs";
+import { BarController, BarElement, CategoryScale, Chart, Legend, LinearScale, Tooltip } from "chart.js";
+
+Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
 
 const currencyFormatter = new Intl.NumberFormat("id-ID");
 
@@ -84,6 +87,81 @@ if (dialogPilihPasien) {
         console.log(data);
     });
 }
+
+function initVisitsChart() {
+    const canvas = document.getElementById("visitsChart");
+
+    if (!canvas) {
+        return;
+    }
+
+    const labels = JSON.parse(canvas.dataset.labels);
+    const maleData = JSON.parse(canvas.dataset.male);
+    const femaleData = JSON.parse(canvas.dataset.female);
+
+    const rootStyles = getComputedStyle(document.documentElement);
+    const femaleColor = rootStyles.getPropertyValue("--color-muted-foreground").trim() || "#737373";
+    const maleColor = rootStyles.getPropertyValue("--color-primary").trim() || "#1591dc";
+
+    new Chart(canvas, {
+        type: "bar",
+        data: {
+            labels,
+            datasets: [
+                {
+                    label: "Perempuan",
+                    data: femaleData,
+                    backgroundColor: femaleColor,
+                    borderRadius: 6,
+                },
+                {
+                    label: "Laki-laki",
+                    data: maleData,
+                    backgroundColor: maleColor,
+                    borderRadius: 6,
+                },
+            ],
+        },
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: "bottom",
+                },
+            },
+            scales: {
+                x: {
+                    border: {
+                        display: false,
+                    },
+                    grid: {
+                        display: false,
+                        drawBorder: false,
+                    },
+                    ticks: {
+                        display: true,
+                    },
+                },
+                y: {
+                    border: {
+                        display: false,
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        display: false,
+                    },
+                    grid: {
+                        display: true,
+                        drawBorder: false,
+                    },
+                },
+            },
+        },
+    });
+}
+
+initVisitsChart();
 
 Alpine.data("entityPicker", (path) => {
     console.log("Entity Picker Path:", path);
