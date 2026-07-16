@@ -35,15 +35,18 @@ Route::middleware(['auth'])->group(function () {
     Route::delete('/data-pasien/{patient}', [PatientController::class, 'destroy'])->name('patients.destroy');
     Route::get('/data-pasien/{patient}', [PatientController::class, 'show'])->name('patients.show');
 
-    Route::get('/jadwal-terapi', [ScheduleController::class, 'index']);
-    Route::get('/jadwal-terapi/buat', [ScheduleController::class, 'create']);
+    Route::get('/jadwal-terapi', [ScheduleController::class, 'index'])->name('schedules.index');
+    Route::get('/jadwal-terapi/buat', [ScheduleController::class, 'create'])->name('schedules.create');
+    Route::post('/jadwal-terapi', [ScheduleController::class, 'store'])->name('schedules.store');
     Route::get('/jadwal-terapi/{month}-{year}', [ScheduleController::class, 'indexByMonth'])
         ->where([
             'month' => '0?[1-9]|1[0-2]',
             'year' => '20[0-9]{2}',
-        ]);
-    Route::get('/jadwal-terapi/{id}/edit', [ScheduleController::class, 'edit']);
-    Route::get('/jadwal-terapi/{id}', [ScheduleController::class, 'show']);
+        ])->name('schedules.month');
+    Route::get('/jadwal-terapi/{schedule}/edit', [ScheduleController::class, 'edit'])->name('schedules.edit');
+    Route::patch('/jadwal-terapi/{schedule}', [ScheduleController::class, 'update'])->name('schedules.update');
+    Route::delete('/jadwal-terapi/{schedule}', [ScheduleController::class, 'destroy'])->name('schedules.destroy');
+    Route::get('/jadwal-terapi/{schedule}', [ScheduleController::class, 'show'])->name('schedules.show');
 
     Route::get('/kasir', [CashierTransactionController::class, 'index']);
     Route::get('/kasir/{month}-{year}', [CashierTransactionController::class, 'indexByMonth'])

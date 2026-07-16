@@ -6,11 +6,11 @@ use App\Http\Requests\StoreStaffRequest;
 use App\Http\Requests\UpdateStaffRequest;
 use App\Http\Resources\StaffResource;
 use App\Models\User;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\View\View;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
-use Illuminate\Http\JsonResponse;
+use Illuminate\View\View;
 
 class StaffController extends Controller
 {
@@ -32,12 +32,16 @@ class StaffController extends Controller
             })
             ->orderBy('name');
 
+        $paginated = $request->ajax() || $request->wantsJson()
+            ? $staff->paginate(5)->withQueryString()
+            : $staff->paginate(10)->withQueryString();
+
         if ($request->ajax() || $request->wantsJson()) {
-            return StaffResource::collection($staff->paginate(5));
+            return $this->paginatedJsonResponse($paginated, StaffResource::class);
         }
 
         return view('pages.staff.index', [
-            'staff' => $staff->paginate(10)->withQueryString(),
+            'staff' => $paginated,
             'search' => $search,
         ]);
     }
@@ -95,5 +99,20 @@ class StaffController extends Controller
         $staff->assign($role);
 
         return redirect()->to("/staff/{$staff->id}")->with('success', ucfirst($role).' berhasil diperbarui.');
+    }
+
+    private function paginatedJsonResponse($paginator, string $resourceClass): JsonResponse
+    {
+        return response()->json([
+            'data' => $resourceClass::collection($paginator)->resolve(),
+            'links' => $paginator->linkCollection()->toArray(),
+            'meta' => [
+                'current_page' => $paginator->currentPage(),
+                'from' => $paginator->firstItem(),
+                'to' => $paginator->lastItem(),
+                'total' => $paginator->total(),
+                'last_page' => $paginator->lastPage(),
+            ],
+        ]);
     }
 }

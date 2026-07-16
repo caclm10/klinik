@@ -19,7 +19,8 @@ class StaffResource extends JsonResource
             'name' => $this->name,
             'birthDate' => $this->birth_date?->format('d/m/Y'),
             'gender' => $this->gender->label(),
-            'createdAt' => $this->created_at->format('d/m/Y H:i:s'),
+            'role' => $this->role,
+            'createdAt' => $this->created_at?->format('d/m/Y H:i:s'),
         ];
     }
 }

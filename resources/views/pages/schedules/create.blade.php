@@ -1,6 +1,4 @@
 <x-layout.dashboard>
-
-
     <div>
         <a href="{{ $prev }}" class="button border-transparent">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -14,14 +12,13 @@
     <h1 class="font-extrabold text-3xl">Buat Jadwal Terapi</h1>
 
     <div class="flex justify-center">
-        <div class="bg-white border border-foreground rounded-xl shadow-lg p-6 max-w-xl">
+        <div class="bg-white border border-foreground rounded-xl shadow-lg p-6 max-w-xl w-full">
+            <form action="{{ route('schedules.store') }}" method="POST" class="flex flex-col gap-6">
+                @csrf
 
-            <div class="flex flex-col gap-6">
-
-                {{-- Row 1: ID + Nama Pasien --}}
                 <div class="grid">
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium ">Pasien</label>
+                        <label class="text-[18px] font-medium">Pasien</label>
 
                         <div class="flex items-center gap-2" x-data="entityPicker('data-pasien')">
                             <input type="hidden" name="patient_id" x-model="selectedItemId">
@@ -59,7 +56,7 @@
                                             <table class="table table--rounded">
                                                 <thead>
                                                     <tr>
-                                                        <th>ID</th>
+                                                        <th>No</th>
                                                         <th>Nama Pasien</th>
                                                         <th>Tgl Lahir</th>
                                                         <th>Jenis Kelamin</th>
@@ -139,35 +136,40 @@
                 </div>
 
 
-                {{-- Row 4: Keluhan --}}
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[18px] font-medium ">Keluhan</label>
-                    <input type="text" placeholder="Contoh Stroke" class="input">
+                    <label for="complaint" class="text-[18px] font-medium">Keluhan</label>
+                    <input type="text" id="complaint" name="complaint" value="{{ old('complaint') }}"
+                        placeholder="Contoh Stroke" class="input">
                 </div>
 
-                {{-- Row 5: Treatment --}}
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[18px] font-medium ">Treatment</label>
-                    <input type="text" placeholder="Contoh Terapi Stroke" class="input">
+                    <label for="treatment" class="text-[18px] font-medium">Treatment</label>
+                    <input type="text" id="treatment" name="treatment" value="{{ old('treatment') }}"
+                        placeholder="Contoh Terapi Stroke" class="input">
                 </div>
 
-                {{-- Row 6: Jadwal + Waktu --}}
-                <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium ">Jadwal</label>
-                        <input type="date" class="input">
+                        <label for="schedule_date" class="text-[18px] font-medium">Jadwal</label>
+                        <input type="date" id="schedule_date" name="schedule_date"
+                            value="{{ old('schedule_date') }}" class="input">
                     </div>
                     <div class="flex flex-col gap-1.5">
-                        <label class="text-[18px] font-medium ">Waktu</label>
-                        <input type="text" placeholder="Contoh 13.00 - 14.00 WIB" class="input">
+                        <label for="start_time" class="text-[18px] font-medium">Waktu Mulai</label>
+                        <input type="time" id="start_time" name="start_time" value="{{ old('start_time') }}"
+                            placeholder="Masukkan waktu mulai" class="input">
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label for="end_time" class="text-[18px] font-medium">Waktu Selesai</label>
+                        <input type="time" id="end_time" name="end_time" value="{{ old('end_time') }}"
+                            placeholder="Masukkan waktu selesai" class="input">
                     </div>
                 </div>
 
-                {{-- Row 7: Dokter/Perawat + Status --}}
                 <div class="flex flex-col gap-1.5" x-data="entityPicker('staff')">
-                    <label class="text-[18px] font-medium ">Dokter/ Perawat</label>
+                    <label class="text-[18px] font-medium">Dokter/ Perawat</label>
                     <div class="flex items-center gap-2">
-                        <input type="hidden" name="staff_id" x-model="selectedItemId">
+                        <input type="hidden" name="user_id" x-model="selectedItemId">
                         <input type="text" x-model="selectedItemName" placeholder="Pilih dokter/perawat" readonly
                             class="input grow">
 
@@ -199,10 +201,11 @@
                                         <table class="table table--rounded">
                                             <thead>
                                                 <tr>
-                                                    <th>ID</th>
+                                                    <th>No</th>
                                                     <th>Nama Dokter/Perawat</th>
                                                     <th>Tgl Lahir</th>
                                                     <th>Jenis Kelamin</th>
+                                                    <th>Role</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -220,6 +223,13 @@
                                                         <td x-text="items.name"></td>
                                                         <td x-text="items.birthDate"></td>
                                                         <td x-text="items.gender"></td>
+                                                        <td>
+                                                            <span class="capitalize badge" x-text="items.role"
+                                                                :class="{
+                                                                    'badge--primary-muted': items.role === 'dokter',
+                                                                    'badge--info-muted': items.role === 'perawat',
+                                                                }"></span>
+                                                        </td>
                                                         <td>
                                                             <button type="button"
                                                                 class="button bg-primary button--primary button--sm"
@@ -276,27 +286,24 @@
                 </div>
 
                 <div class="flex flex-col gap-1.5">
-                    <label class="text-[18px] font-medium ">Status</label>
-                    <input type="text" placeholder="Contoh Selesai" class="input">
+                    <label for="status" class="text-[18px] font-medium">Status</label>
+                    <select name="status" id="status" class="input">
+                        <option value="" disabled {{ old('status') ? '' : 'selected' }}>Pilih</option>
+                        <option value="menunggu" {{ old('status') === 'menunggu' ? 'selected' : '' }}>Menunggu</option>
+                        <option value="selesai" {{ old('status') === 'selesai' ? 'selected' : '' }}>Selesai</option>
+                    </select>
                 </div>
 
-                {{-- Row 8: Buttons --}}
                 <div class="flex flex-col gap-3">
-
                     <button type="submit" class="button bg-primary text-primary-foreground border-primary">
                         Simpan
                     </button>
 
-                    <button type="button" class="button text-destructive border-destructive">
-                        Hapus Data
-                    </button>
+                    <a href="{{ $prev }}" class="button">
+                        Batal
+                    </a>
                 </div>
-
-            </div>
-
+            </form>
         </div>
     </div>
-
-
-
 </x-layout.dashboard>

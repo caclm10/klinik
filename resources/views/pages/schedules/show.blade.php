@@ -1,7 +1,7 @@
 <x-layout.dashboard>
 
     <div>
-        <a href="/jadwal-terapi/02-2026" class="button border-transparent">
+        <a href="/jadwal-terapi/{{ $schedule->schedule_date->format('m-Y') }}" class="button border-transparent">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
                 <path d="m15 18-6-6 6-6" />
@@ -15,7 +15,7 @@
 
         <div class="grow"></div>
 
-        <a href="/jadwal-terapi/{{ $patient->id }}/edit"
+        <a href="/jadwal-terapi/{{ $schedule->id }}/edit"
             class="button bg-warning text-warning-foreground border-warning">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
@@ -36,44 +36,43 @@
             <div class="flex flex-col gap-6">
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Pasien</span>
-                    <a href="/data-pasien/{{ $patient->id }}" class="" target="_blank">{{ $patient->name }}
-                        (#{{ $patient->id }})</a>
+                    <a href="/data-pasien/{{ $schedule->patient_id }}" target="_blank">
+                        {{ $schedule->patient->name }} (#{{ $schedule->patient_id }})
+                    </a>
                 </div>
 
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Keluhan</span>
-                    <span class="">{{ $patient->therapy->complaint }}</span>
+                    <span>{{ $schedule->complaint }}</span>
                 </div>
 
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Treatment</span>
-                    <span class="">{{ $patient->therapy->treatment }}</span>
+                    <span>{{ $schedule->treatment }}</span>
                 </div>
 
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Jadwal</span>
-                    <span class="">{{ $patient->therapy->schedule_date }}</span>
+                    <span>{{ $schedule->schedule_date->format('d/m/Y') }}</span>
                 </div>
             </div>
 
             <div class="flex flex-col gap-6">
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Waktu</span>
-                    <span class="">{{ $patient->therapy->schedule_time }}</span>
+                    <span>{{ $schedule->start_time->format('H:i') }} - {{ $schedule->end_time->format('H:i') }} WIB</span>
                 </div>
 
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Perawat/Dokter</span>
-                    <span class="">{{ $patient->therapy->practitioner }}</span>
+                    <span>{{ $schedule->practitioner->name }}</span>
                 </div>
 
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Status</span>
-                    <span class="">{{ $patient->therapy->status }}</span>
+                    <span class="capitalize">{{ $schedule->status }}</span>
                 </div>
             </div>
         </div>
-
-
     </div>
 </x-layout.dashboard>

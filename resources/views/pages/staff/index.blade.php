@@ -52,7 +52,7 @@
                                 <td>
                                     <span
                                         class="inline-flex items-center justify-center rounded-full px-3 py-1 text-xs font-medium capitalize {{ $member->isA('dokter') ? 'bg-primary/10 text-primary' : 'bg-info/10 text-info' }}">
-                                        {{ $member->roles->first()->name }}
+                                        {{ $member->role }}
                                     </span>
                                 </td>
                                 <td>

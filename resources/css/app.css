@@ -81,6 +81,22 @@
         @apply inline-flex h-5 w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-4xl border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-all focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 has-data-[icon=inline-end]:pr-1.5 has-data-[icon=inline-start]:pl-1.5 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3;
     }
 
+    .badge--primary {
+        @apply bg-primary text-primary-foreground [a]:hover:bg-primary/80;
+    }
+
+    .badge--primary-muted {
+        @apply bg-primary/10 text-primary [a]:hover:bg-primary/20;
+    }
+
+    .badge--info {
+        @apply bg-info text-info-foreground [a]:hover:bg-info/80;
+    }
+
+    .badge--info-muted {
+        @apply bg-info/10 text-info [a]:hover:bg-info/20;
+    }
+
     .badge--success {
         @apply bg-success text-success-foreground [a]:hover:bg-success/80;
     }
@@ -146,7 +162,8 @@
     }
 
     select.input,
-    .input[type="date"] {
+    .input[type="date"],
+    .input[type="time"] {
         background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M6 8l4 4 4-4'/%3e%3c/svg%3e");
         background-position: right 0.5rem center;
         background-repeat: no-repeat;

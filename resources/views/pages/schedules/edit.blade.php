@@ -1,6 +1,6 @@
 <x-layout.dashboard>
     <div>
-        <a href="/jadwal-terapi/{{ $patient->id }}" class="button border-transparent">
+        <a href="{{ $prev }}" class="button border-transparent">
             <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                 stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
                 <path d="m15 18-6-6 6-6" />
@@ -9,182 +9,311 @@
         </a>
     </div>
 
-    <form action="#" method="POST" class="flex flex-col gap-6">
-        @csrf
+    <h1 class="font-extrabold text-3xl">Edit Jadwal Terapi</h1>
 
-        <div class="flex justify-center">
-            <div class="bg-white border border-foreground rounded-xl shadow-lg p-6 max-w-xl w-full">
-                <div class="flex flex-col gap-6">
-                    <div class="grid">
-                        <div class="flex flex-col gap-1.5">
-                            <label class="text-[18px] font-medium">Pasien</label>
+    <div class="flex justify-center">
+        <div class="bg-white border border-foreground rounded-xl shadow-lg p-6 max-w-xl w-full">
+            <form action="{{ route('schedules.update', $schedule) }}" method="POST" class="flex flex-col gap-6">
+                @csrf
+                @method('PATCH')
 
-                            <div class="flex items-center gap-2">
-                                <input type="text" value="{{ $patient->name }}" class="input grow">
-                                <div>
-                                    <button type="button"
-                                        class="button bg-primary text-primary-foreground border-primary"
-                                        command="show-modal" commandfor="dialog-pilih-pasien">
-                                        Cari
-                                    </button>
+                <div class="grid">
+                    <div class="flex flex-col gap-1.5">
+                        <label class="text-[18px] font-medium">Pasien</label>
+
+                        <div class="flex items-center gap-2" x-data="entityPicker('data-pasien')" x-init="selectedItemId = '{{ old('patient_id', $schedule->patient_id) }}';
+                        selectedItemName = '{{ old('patient_name', $schedule->patient->name) }}'">
+                            <input type="hidden" name="patient_id" x-model="selectedItemId">
+                            <input type="text" x-model="selectedItemName" placeholder="Pilih pasien" readonly
+                                class="input grow">
+
+                            <div>
+                                <button type="button" class="button button--primary-outline" @click="open()">
+                                    Cari
+                                </button>
+                            </div>
+
+                            <dialog x-ref="dialog" class="dialog">
+                                <div class="bg-white w-full max-w-2xl p-6 rounded-xl flex flex-col gap-4"
+                                    data-slot="box">
+                                    <div class="dialog__header">
+                                        <h3 class="text-lg font-semibold">Pilih Pasien</h3>
+                                    </div>
+
+                                    <div class="dialog__content">
+                                        <div class="flex justify-end pt-1 pr-1">
+                                            <div class="relative">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground">
+                                                    <path d="m21 21-4.34-4.34" />
+                                                    <circle cx="11" cy="11" r="8" />
+                                                </svg>
+                                                <input type="search" placeholder="Cari nama pasien"
+                                                    class="pl-10 h-10 px-3 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary" />
+                                            </div>
+                                        </div>
+                                        <div class="overflow-x-auto py-2">
+                                            <table class="table table--rounded">
+                                                <thead>
+                                                    <tr>
+                                                        <th>No</th>
+                                                        <th>Nama Pasien</th>
+                                                        <th>Tgl Lahir</th>
+                                                        <th>Jenis Kelamin</th>
+                                                        <th>Aksi</th>
+                                                    </tr>
+                                                </thead>
+
+                                                <tbody>
+                                                    <tr data-spacer>
+                                                        <td colspan="99" class="h-3 p-0"></td>
+                                                    </tr>
+
+                                                    <template x-for="(items, index) in paginator.data"
+                                                        :key="items.id">
+                                                        <tr class="bg-white even:bg-muted">
+                                                            <td class="text-center"
+                                                                x-text="paginator.meta.from + index">
+                                                            </td>
+                                                            <td x-text="items.name"></td>
+                                                            <td x-text="items.birthDate"></td>
+                                                            <td x-text="items.gender"></td>
+                                                            <td>
+                                                                <button type="button"
+                                                                    class="button bg-primary button--primary button--sm"
+                                                                    @click="selectItem(items)">
+                                                                    Pilih
+                                                                </button>
+                                                            </td>
+                                                        </tr>
+                                                    </template>
+                                                </tbody>
+                                            </table>
+                                        </div>
+
+                                        <div class="flex justify-between items-center">
+                                            <p class="text-muted-foreground text-xs" x-text="paginationInfo">
+
+                                            </p>
+
+                                            <div class="flex items-center gap-2">
+                                                <button type="button" class="button button--icon"
+                                                    :disabled="paginator.meta.current_page === 1"
+                                                    @click="goToPage(paginator.meta.current_page - 1)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="size-4">
+                                                        <path d="m15 18-6-6 6-6" />
+                                                    </svg>
+                                                </button>
+
+                                                <span class="text-muted-foreground text-xs"
+                                                    x-text="`${paginator.meta.current_page} of ${paginator.meta.last_page}`"></span>
+
+                                                <button type="button" class="button button--icon"
+                                                    :disabled="paginator.meta.current_page === paginator.meta.last_page"
+                                                    @click="goToPage(paginator.meta.current_page + 1)">
+                                                    <svg xmlns="http://www.w3.org/2000/svg" width="24"
+                                                        height="24" viewBox="0 0 24 24" fill="none"
+                                                        stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                                        stroke-linejoin="round" class="size-4">
+                                                        <path d="m9 18 6-6-6-6" />
+                                                    </svg>
+                                                </button>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div class="dialog__footer justify-end">
+                                        <button type="button" class="button" @click="close()">Close</button>
+                                    </div>
+                                </div>
+                            </dialog>
+                        </div>
+                    </div>
+
+                </div>
+
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="complaint" class="text-[18px] font-medium">Keluhan</label>
+                    <input type="text" id="complaint" name="complaint"
+                        value="{{ old('complaint', $schedule->complaint) }}" placeholder="Contoh Stroke"
+                        class="input">
+                </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="treatment" class="text-[18px] font-medium">Treatment</label>
+                    <input type="text" id="treatment" name="treatment"
+                        value="{{ old('treatment', $schedule->treatment) }}" placeholder="Contoh Terapi Stroke"
+                        class="input">
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+                    <div class="flex flex-col gap-1.5">
+                        <label for="schedule_date" class="text-[18px] font-medium">Jadwal</label>
+                        <input type="date" id="schedule_date" name="schedule_date"
+                            value="{{ old('schedule_date', $schedule->schedule_date->format('Y-m-d')) }}"
+                            class="input">
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label for="start_time" class="text-[18px] font-medium">Waktu Mulai</label>
+                        <input type="time" id="start_time" name="start_time"
+                            value="{{ old('start_time', $schedule->start_time->format('H:i')) }}"
+                            placeholder="Masukkan waktu mulai" class="input">
+                    </div>
+                    <div class="flex flex-col gap-1.5">
+                        <label for="end_time" class="text-[18px] font-medium">Waktu Selesai</label>
+                        <input type="time" id="end_time" name="end_time"
+                            value="{{ old('end_time', $schedule->end_time->format('H:i')) }}"
+                            placeholder="Masukkan waktu selesai" class="input">
+                    </div>
+                </div>
+
+                <div class="flex flex-col gap-1.5" x-data="entityPicker('staff')" x-init="selectedItemId = '{{ old('user_id', $schedule->user_id) }}';
+                selectedItemName = '{{ old('staff_name', $schedule->practitioner->name) }}'">
+                    <label class="text-[18px] font-medium">Dokter/ Perawat</label>
+                    <div class="flex items-center gap-2">
+                        <input type="hidden" name="user_id" x-model="selectedItemId">
+                        <input type="text" x-model="selectedItemName" placeholder="Pilih dokter/perawat" readonly
+                            class="input grow">
+
+                        <button type="button" class="button button--primary-outline" @click="open">
+                            Cari
+                        </button>
+
+                        <dialog x-ref="dialog" class="dialog">
+                            <div class="bg-white w-full max-w-2xl p-6 rounded-xl flex flex-col gap-4" data-slot="box">
+                                <div class="dialog__header">
+                                    <h3 class="text-lg font-semibold">Pilih Dokter/Perawat</h3>
+                                </div>
+
+                                <div class="dialog__content">
+                                    <div class="flex justify-end pt-1 pr-1">
+                                        <div class="relative">
+                                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground">
+                                                <path d="m21 21-4.34-4.34" />
+                                                <circle cx="11" cy="11" r="8" />
+                                            </svg>
+                                            <input type="search" placeholder="Cari nama dokter/perawat"
+                                                class="pl-10 h-10 px-3 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary" />
+                                        </div>
+                                    </div>
+                                    <div class="overflow-x-auto py-2">
+                                        <table class="table table--rounded">
+                                            <thead>
+                                                <tr>
+                                                    <th>No</th>
+                                                    <th>Nama Dokter/Perawat</th>
+                                                    <th>Tgl Lahir</th>
+                                                    <th>Jenis Kelamin</th>
+                                                    <td>
+                                                        <span class="capitalize badge" x-text="items.role"
+                                                            :class="{
+                                                                'badge--primary-muted': items.role === 'dokter',
+                                                                'badge--info-muted': items.role === 'perawat',
+                                                            }"></span>
+                                                    </td>
+                                                    <th>Aksi</th>
+                                                </tr>
+                                            </thead>
+
+                                            <tbody>
+                                                <tr data-spacer>
+                                                    <td colspan="99" class="h-3 p-0"></td>
+                                                </tr>
+
+                                                <template x-for="(items, index) in paginator.data"
+                                                    :key="items.id">
+                                                    <tr class="bg-white even:bg-muted">
+                                                        <td class="text-center" x-text="paginator.meta.from + index">
+                                                        </td>
+                                                        <td x-text="items.name"></td>
+                                                        <td x-text="items.birthDate"></td>
+                                                        <td x-text="items.gender"></td>
+                                                        <td>
+                                                            <button type="button"
+                                                                class="button bg-primary button--primary button--sm"
+                                                                @click="selectItem(items)">
+                                                                Pilih
+                                                            </button>
+                                                        </td>
+                                                    </tr>
+                                                </template>
+                                            </tbody>
+                                        </table>
+                                    </div>
+
+                                    <div class="flex justify-between items-center">
+                                        <p class="text-muted-foreground text-xs" x-text="paginationInfo">
+
+                                        </p>
+
+                                        <div class="flex items-center gap-2">
+                                            <button type="button" class="button button--icon"
+                                                :disabled="paginator.meta.current_page === 1"
+                                                @click="goToPage(paginator.meta.current_page - 1)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="size-4">
+                                                    <path d="m15 18-6-6 6-6" />
+                                                </svg>
+                                            </button>
+
+                                            <span class="text-muted-foreground text-xs"
+                                                x-text="`${paginator.meta.current_page} of ${paginator.meta.last_page}`"></span>
+
+                                            <button type="button" class="button button--icon"
+                                                :disabled="paginator.meta.current_page === paginator.meta.last_page"
+                                                @click="goToPage(paginator.meta.current_page + 1)">
+                                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
+                                                    viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                                    stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                                                    class="size-4">
+                                                    <path d="m9 18 6-6-6-6" />
+                                                </svg>
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="dialog__footer justify-end">
+                                    <button type="button" class="button" @click="close()">Close</button>
                                 </div>
                             </div>
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-1.5">
-                        <label for="complaint" class="text-[18px] font-medium">Keluhan</label>
-                        <input id="complaint" name="complaint" type="text" value="{{ $patient->therapy->complaint }}"
-                            class="input">
-                    </div>
-
-                    <div class="flex flex-col gap-1.5">
-                        <label for="treatment" class="text-[18px] font-medium">Treatment</label>
-                        <input id="treatment" name="treatment" type="text" value="{{ $patient->therapy->treatment }}"
-                            class="input">
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="flex flex-col gap-1.5">
-                            <label for="schedule_date" class="text-[18px] font-medium">Jadwal</label>
-                            <div
-                                class="flex items-center justify-between w-full h-10 px-3 border border-border rounded-md">
-                                <input id="schedule_date" name="schedule_date" type="text"
-                                    value="{{ $patient->therapy->schedule_date }}"
-                                    class="w-full bg-transparent outline-none">
-                                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                    viewBox="0 0 24 24" fill="none">
-                                    <path d="M3 9h18M9 3v4m6-4v4" stroke="#737791" stroke-width="2"
-                                        stroke-linecap="round" />
-                                    <rect x="3" y="5" width="18" height="16" rx="2" stroke="#737791"
-                                        stroke-width="2" />
-                                </svg>
-                            </div>
-                        </div>
-
-                        <div class="flex flex-col gap-1.5">
-                            <label for="schedule_time" class="text-[18px] font-medium">Waktu</label>
-                            <input id="schedule_time" name="schedule_time" type="text"
-                                value="{{ $patient->therapy->schedule_time }}" class="input">
-                        </div>
-                    </div>
-
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-                        <div class="flex flex-col gap-1.5">
-                            <label for="practitioner" class="text-[18px] font-medium">Dokter/ Perawat</label>
-                            <input id="practitioner" name="practitioner" type="text"
-                                value="{{ $patient->therapy->practitioner }}" class="input">
-                        </div>
-
-                        <div class="flex flex-col gap-1.5">
-                            <label for="status" class="text-[18px] font-medium">Status</label>
-                            <input id="status" name="status" type="text" value="{{ $patient->therapy->status }}"
-                                class="input">
-                        </div>
-                    </div>
-
-                    <div class="flex flex-col gap-3">
-                        <button type="submit" class="button bg-primary text-primary-foreground border-primary">
-                            Simpan
-                        </button>
-
-                        <button type="button" class="button text-destructive border-destructive">
-                            Hapus Data
-                        </button>
+                        </dialog>
                     </div>
                 </div>
-            </div>
+
+                <div class="flex flex-col gap-1.5">
+                    <label for="status" class="text-[18px] font-medium">Status</label>
+                    <select name="status" id="status" class="input">
+                        <option value="" disabled {{ old('status', $schedule->status) ? '' : 'selected' }}>Pilih
+                        </option>
+                        <option value="menunggu"
+                            {{ old('status', $schedule->status) === 'menunggu' ? 'selected' : '' }}>Menunggu</option>
+                        <option value="selesai"
+                            {{ old('status', $schedule->status) === 'selesai' ? 'selected' : '' }}>Selesai</option>
+                    </select>
+                </div>
+
+                <div class="flex flex-col gap-3">
+                    <button type="submit" class="button bg-primary text-primary-foreground border-primary">
+                        Simpan
+                    </button>
+
+                    <a href="{{ $prev }}" class="button">
+                        Batal
+                    </a>
+                </div>
+            </form>
         </div>
-    </form>
-
-    <dialog id="dialog-pilih-pasien" class="dialog">
-        <div class="bg-white w-full max-w-2xl p-6 rounded-xl flex flex-col gap-4" data-slot="box">
-            <div data-slot="header">
-                <h3 class="text-lg font-semibold">Pilih Pasien</h3>
-            </div>
-
-            <div data-slot="content">
-                <div class="flex justify-end pt-1 pr-1">
-                    <div class="relative">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                            stroke-linejoin="round"
-                            class="absolute left-3 top-1/2 -translate-y-1/2 size-4 text-muted-foreground">
-                            <path d="m21 21-4.34-4.34" />
-                            <circle cx="11" cy="11" r="8" />
-                        </svg>
-                        <input type="search" placeholder="Cari nama pasien"
-                            class="pl-10 h-10 px-3 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary" />
-                    </div>
-                </div>
-
-                <div class="overflow-x-auto py-2">
-                    <table class="table table--rounded">
-                        <thead>
-                            <tr>
-                                <th>ID</th>
-                                <th>Nama Pasien</th>
-                                <th>Tgl Lahir</th>
-                                <th>Jenis Kelamin</th>
-                                <th>Aksi</th>
-                            </tr>
-                        </thead>
-
-                        <tbody>
-                            <tr data-spacer>
-                                <td colspan="99" class="h-3 p-0"></td>
-                            </tr>
-
-                            @foreach ($patients as $patientItem)
-                                <tr class="bg-white even:bg-muted">
-                                    <td class="text-center">{{ $patientItem->id }}</td>
-                                    <td>{{ $patientItem->name }}</td>
-                                    <td>{{ $patientItem->birth_date }}</td>
-                                    <td>{{ $patientItem->gender }}</td>
-                                    <td>
-                                        <button type="button"
-                                            class="button bg-primary text-primary-foreground button--sm"
-                                            commandfor="dialog-pilih-pasien" command="close">
-                                            Pilih
-                                        </button>
-                                    </td>
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-
-                <div class="flex justify-between items-center">
-                    <p class="text-muted-foreground text-xs">
-                        1 - 10 dari 89 Data
-                    </p>
-
-                    <div class="flex items-center gap-2">
-                        <button type="button" class="button button--icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="size-4">
-                                <path d="m15 18-6-6 6-6" />
-                            </svg>
-                        </button>
-
-                        <span class="text-muted-foreground text-xs">1 of 10</span>
-
-                        <button type="button" class="button button--icon">
-                            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24"
-                                viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
-                                stroke-linecap="round" stroke-linejoin="round" class="size-4">
-                                <path d="m9 18 6-6-6-6" />
-                            </svg>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div data-slot="footer" class="flex justify-end">
-                <button type="button" commandfor="dialog-pilih-pasien" command="close"
-                    class="button">Close</button>
-            </div>
-        </div>
-    </dialog>
+    </div>
 </x-layout.dashboard>

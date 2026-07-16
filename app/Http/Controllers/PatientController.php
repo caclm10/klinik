@@ -27,12 +27,16 @@ class PatientController extends Controller
                 });
             });
 
+        $paginated = $request->ajax() || $request->wantsJson()
+            ? $patients->paginate(5)->withQueryString()
+            : $patients->paginate(10)->withQueryString();
+
         if ($request->ajax() || $request->wantsJson()) {
-            return PatientResource::collection($patients->paginate(5));
+            return $this->paginatedJsonResponse($paginated, PatientResource::class);
         }
 
         return view('pages.patients.index', [
-            'patients' => $patients->paginate(10)->withQueryString(),
+            'patients' => $paginated,
             'search' => $search,
         ]);
     }
@@ -75,5 +79,20 @@ class PatientController extends Controller
         $patient->delete();
 
         return redirect()->route('patients.index')->with('success', 'Data pasien berhasil dihapus.');
+    }
+
+    private function paginatedJsonResponse($paginator, string $resourceClass): JsonResponse
+    {
+        return response()->json([
+            'data' => $resourceClass::collection($paginator)->resolve(),
+            'links' => $paginator->linkCollection()->toArray(),
+            'meta' => [
+                'current_page' => $paginator->currentPage(),
+                'from' => $paginator->firstItem(),
+                'to' => $paginator->lastItem(),
+                'total' => $paginator->total(),
+                'last_page' => $paginator->lastPage(),
+            ],
+        ]);
     }
 }

@@ -18,8 +18,8 @@ class PatientResource extends JsonResource
             'id' => $this->id,
             'name' => $this->name,
             'birthDate' => $this->birth_date?->format('d/m/Y'),
-            'gender' => $this->gender->label(),
-            'createdAt' => $this->created_at->format('d/m/Y H:i:s'),
+            'gender' => $this->gender_label,
+            'createdAt' => $this->created_at?->format('d/m/Y H:i:s'),
         ];
     }
 }
