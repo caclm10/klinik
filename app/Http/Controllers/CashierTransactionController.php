@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreTransactionRequest;
 use App\Models\Schedule;
 use App\Models\Transaction;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class CashierTransactionController extends Controller
@@ -86,5 +88,24 @@ class CashierTransactionController extends Controller
 
         return redirect()->to("/kasir/{$schedule->schedule_date->format('m-Y')}")
             ->with('success', 'Pembayaran berhasil dicatat.');
+    }
+
+    public function download(string $month, string $year): Response
+    {
+        $schedules = Schedule::with(['patient', 'practitioner', 'transaction'])
+            ->whereMonth('schedule_date', $month)
+            ->whereYear('schedule_date', $year)
+            ->orderBy('schedule_date')
+            ->orderBy('start_time')
+            ->get();
+
+        $pdf = Pdf::loadView('pdf.cashier-month', [
+            'month' => $month,
+            'year' => $year,
+            'monthName' => Carbon::createFromDate($year, $month, 1)->translatedFormat('F'),
+            'schedules' => $schedules,
+        ]);
+
+        return $pdf->download("kasir-{$month}-{$year}.pdf");
     }
 }

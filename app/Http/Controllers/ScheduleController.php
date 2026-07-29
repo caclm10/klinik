@@ -5,9 +5,11 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreScheduleRequest;
 use App\Http\Requests\UpdateScheduleRequest;
 use App\Models\Schedule;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Carbon\Carbon;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class ScheduleController extends Controller
@@ -118,5 +120,14 @@ class ScheduleController extends Controller
 
         return redirect()->to("/jadwal-terapi/{$monthYear}")
             ->with('success', 'Jadwal terapi berhasil dihapus.');
+    }
+
+    public function download(Schedule $schedule): Response
+    {
+        $pdf = Pdf::loadView('pdf.schedule', [
+            'schedule' => $schedule->load(['patient', 'practitioner']),
+        ]);
+
+        return $pdf->download("jadwal-{$schedule->id}.pdf");
     }
 }

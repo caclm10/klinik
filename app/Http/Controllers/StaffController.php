@@ -6,10 +6,12 @@ use App\Http\Requests\StoreStaffRequest;
 use App\Http\Requests\UpdateStaffRequest;
 use App\Http\Resources\StaffResource;
 use App\Models\User;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class StaffController extends Controller
@@ -99,6 +101,19 @@ class StaffController extends Controller
         $staff->assign($role);
 
         return redirect()->to("/staff/{$staff->id}")->with('success', ucfirst($role).' berhasil diperbarui.');
+    }
+
+    public function download(User $staff): Response
+    {
+        $staff = User::whereHas('roles', function ($query): void {
+            $query->whereIn('name', ['dokter', 'perawat']);
+        })->findOrFail($staff->id);
+
+        $pdf = Pdf::loadView('pdf.staff', [
+            'staff' => $staff,
+        ]);
+
+        return $pdf->download("staff-{$staff->id}.pdf");
     }
 
     private function paginatedJsonResponse($paginator, string $resourceClass): JsonResponse

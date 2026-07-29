@@ -6,10 +6,12 @@ use App\Http\Requests\StorePatientRequest;
 use App\Http\Requests\UpdatePatientRequest;
 use App\Http\Resources\PatientResource;
 use App\Models\Patient;
+use Barryvdh\DomPDF\Facade\Pdf;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
+use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class PatientController extends Controller
@@ -79,6 +81,15 @@ class PatientController extends Controller
         $patient->delete();
 
         return redirect()->route('patients.index')->with('success', 'Data pasien berhasil dihapus.');
+    }
+
+    public function download(Patient $patient): Response
+    {
+        $pdf = Pdf::loadView('pdf.patient', [
+            'patient' => $patient->load(['schedules.practitioner']),
+        ]);
+
+        return $pdf->download("pasien-{$patient->id}.pdf");
     }
 
     private function paginatedJsonResponse($paginator, string $resourceClass): JsonResponse

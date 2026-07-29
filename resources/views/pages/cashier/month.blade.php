@@ -12,7 +12,7 @@
     <x-ui.page-header title="Kasir {{ $monthName }} {{ $year }}" search-placeholder="Cari nama pasien"
         search-action="{{ url('/kasir/'.$month.'-'.$year) }}" search-value="{{ $search }}">
         <x-slot:actions>
-            <button type="button" class="button">
+            <a href="{{ route('cashier.download', ['month' => $month, 'year' => $year]) }}" class="button">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
                     stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="size-4">
                     <path d="M12 15V3" />
@@ -23,7 +23,7 @@
                 <span>
                     Unduh
                 </span>
-            </button>
+            </a>
         </x-slot:actions>
     </x-ui.page-header>
 
