@@ -14,12 +14,10 @@
         </x-slot:actions>
     </x-ui.page-header>
 
-    @empty($staff)
+    @if($staff->isEmpty())
         <x-ui.empty-state title="Belum Ada Data" description="Tambah data dokter/perawat untuk menampilkan data"
             action-href="/staff/tambah" action-label="Tambah Data" />
-    @endempty
-
-    @isset($staff)
+    @else
         <div class="flex flex-col gap-4">
             <div class="overflow-x-auto py-2">
                 <table class="table table--rounded border-separate border-spacing-y-3">
@@ -68,6 +66,6 @@
 
             <x-ui.pagination :paginator="$staff" :query="['search' => $search]" />
         </div>
-    @endisset
+    @endif
 
 </x-layout.dashboard>

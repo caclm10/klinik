@@ -1,5 +1,5 @@
 @php
-    $backTo = $user->can('view-dashboard') ? '/dashboard' : '/views/jadwal-terapi';
+    $backTo = $user->can('view-dashboard') ? '/dashboard' : '/jadwal-terapi';
 @endphp
 
 <x-layout.dashboard>

@@ -232,13 +232,7 @@
                                                     <th>Nama Dokter/Perawat</th>
                                                     <th>Tgl Lahir</th>
                                                     <th>Jenis Kelamin</th>
-                                                    <td>
-                                                        <span class="capitalize badge" x-text="items.role"
-                                                            :class="{
-                                                                'badge--primary-muted': items.role === 'dokter',
-                                                                'badge--info-muted': items.role === 'perawat',
-                                                            }"></span>
-                                                    </td>
+                                                    <th>Role</th>
                                                     <th>Aksi</th>
                                                 </tr>
                                             </thead>
@@ -256,6 +250,13 @@
                                                         <td x-text="items.name"></td>
                                                         <td x-text="items.birthDate"></td>
                                                         <td x-text="items.gender"></td>
+                                                        <td>
+                                                            <span class="capitalize badge" x-text="items.role"
+                                                                :class="{
+                                                                    'badge--primary-muted': items.role === 'dokter',
+                                                                    'badge--info-muted': items.role === 'perawat',
+                                                                }"></span>
+                                                        </td>
                                                         <td>
                                                             <button type="button"
                                                                 class="button bg-primary button--primary button--sm"
