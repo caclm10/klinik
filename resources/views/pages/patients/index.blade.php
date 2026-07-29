@@ -2,16 +2,18 @@
     <x-ui.page-header title="Data Pasien" search-placeholder="Cari nama pasien" search-action="{{ url('/data-pasien') }}"
         search-value="{{ $search }}">
         <x-slot:actions>
-            <a href="/data-pasien/tambah" class="button bg-primary text-primary-foreground border-primary">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
-                    stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
-                    class="size-4">
-                    <path d="M5 12h14" />
-                    <path d="M12 5v14" />
-                </svg>
+            @can('view-dashboard')
+                <a href="/data-pasien/tambah" class="button bg-primary text-primary-foreground border-primary">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none"
+                        stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                        class="size-4">
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                    </svg>
 
-                <span>Tambah Data</span>
-            </a>
+                    <span>Tambah Data</span>
+                </a>
+            @endcan
         </x-slot:actions>
     </x-ui.page-header>
 

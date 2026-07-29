@@ -2,7 +2,7 @@
     $req = request();
 @endphp
 
-@if($user->isAn("admin"))
+@can('view-dashboard')
 <li>
      <a href="/dashboard"
          class="flex items-center gap-4 px-6 py-4 data-active:bg-primary data-active:text-primary-foreground rounded-2xl"
@@ -25,6 +25,7 @@
          </span>
      </a>
  </li>
+@endcan
 
  <li>
      <a href="/data-pasien"
@@ -63,6 +64,7 @@
      </a>
  </li>
 
+@can('view-dashboard')
  <li>
      <a href="/kasir"
          class="flex items-center gap-4 px-6 py-4 data-active:bg-primary data-active:text-primary-foreground rounded-2xl"
@@ -94,41 +96,4 @@
          </span>
      </a>
  </li>
-@else
-<li>
-    <a href="/staff/jadwal-terapi"
-        class="flex items-center gap-4 px-6 py-4 data-active:bg-primary data-active:text-primary-foreground rounded-2xl"
-        @if ($req->is('staff/jadwal-terapi*')) data-active @endif>
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-            fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-            stroke-linejoin="round" class="size-5">
-            <path d="M11 14h1v4" />
-            <path d="M16 2v4" />
-            <path d="M3 10h18" />
-            <path d="M8 2v4" />
-            <rect x="3" y="4" width="18" height="18" rx="2" />
-        </svg>
-
-        <span>
-            Jadwal Terapi
-        </span>
-    </a>
-</li>
-
-<li>
-    <a href="/staff/data-pasien"
-        class="flex items-center gap-4 px-6 py-4 data-active:bg-primary data-active:text-primary-foreground rounded-2xl"
-        @if ($req->is('staff/data-pasien*')) data-active @endif>
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                fill="none" class="size-5">
-                <rect x="4" y="2" width="16" height="20" rx="2" stroke="currentColor"
-                    stroke-width="2" />
-                <path d="M12 8v8M8 12h8" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
-            </svg>
-
-        <span>
-            Data Pasien
-        </span>
-    </a>
-</li>
-@endif
+@endcan

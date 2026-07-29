@@ -20,22 +20,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        \View::composer("components.dashboard.header", function (View $view) {
-            $user = \Auth::user();
-            $view->with([
-                "user" => $user,
-                "role" => $user?->roles()->first(),
-            ]);
-        });
+        $user = \Auth::user();
+        $role = $user?->roles()->first();
 
-        \View::composer("components.dashboard.sidebar-menu", function (
-            View $view,
-        ) {
+        \View::share("user", $user);
+        \View::share("role", $role);
+
+        \View::composer(["components.dashboard.header"], function ($view) {
             $user = \Auth::user();
-            $view->with([
-                "user" => $user,
-                "role" => $user?->roles()->first(),
-            ]);
+            $role = $user?->roles()->first();
+
+            $view->with("user", $user);
+            $view->with("role", $role);
         });
     }
 }

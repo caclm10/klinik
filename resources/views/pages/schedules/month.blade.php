@@ -12,17 +12,19 @@
     <x-ui.page-header title="Jadwal Terapi {{ $monthName }} {{ $year }}" search-placeholder="Cari nama pasien"
         search-action="{{ url('/jadwal-terapi/'.$month.'-'.$year) }}" search-value="{{ $search }}">
         <x-slot:actions>
-            <a href="/jadwal-terapi/buat?prev=/jadwal-terapi/{{ $month }}-{{ $year }}"
-                class="inline-flex items-center justify-center gap-2 rounded-lg font-medium bg-primary text-primary-foreground px-3 h-10 text-sm shadow">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
-                    fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                    stroke-linejoin="round" class="size-4">
-                    <path d="M5 12h14" />
-                    <path d="M12 5v14" />
-                </svg>
+            @can('view-dashboard')
+                <a href="/jadwal-terapi/buat?prev=/jadwal-terapi/{{ $month }}-{{ $year }}"
+                    class="inline-flex items-center justify-center gap-2 rounded-lg font-medium bg-primary text-primary-foreground px-3 h-10 text-sm shadow">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" class="size-4">
+                        <path d="M5 12h14" />
+                        <path d="M12 5v14" />
+                    </svg>
 
-                <span class="">Buat Jadwal</span>
-            </a>
+                    <span class="">Buat Jadwal</span>
+                </a>
+            @endcan
         </x-slot:actions>
     </x-ui.page-header>
 
