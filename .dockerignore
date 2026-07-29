@@ -1,0 +1,84 @@
+# ============================================
+# GIT
+# ============================================
+.git
+.gitignore
+.gitattributes
+
+# ============================================
+# DOCKER
+# ============================================
+.dockerignore
+Dockerfile
+docker-compose*.yml
+docker-compose*.yaml
+compose*.yaml
+compose*.yml
+
+# ============================================
+# ENVIRONMENT
+# ============================================
+.env
+.env.*
+!.env.example
+!.env.testing
+
+# ============================================
+# VENDOR & NODE MODULES
+# ============================================
+vendor
+node_modules
+
+# ============================================
+# VITE / FRONTEND BUILD
+# ============================================
+public/hot
+public/storage
+
+# ============================================
+# LARAVEL STORAGE & CACHE
+# ============================================
+storage/*.key
+storage/logs/*
+storage/framework/cache/*
+storage/framework/sessions/*
+storage/framework/views/*
+storage/framework/testing/*
+storage/app/public/*
+
+# ============================================
+# LARAVEL BOOTSTRAP CACHE
+# ============================================
+bootstrap/cache/*.php
+
+# ============================================
+# TESTING
+# ============================================
+phpunit.xml
+phpunit.xml.dist
+tests
+coverage
+.phpunit.result.cache
+
+# ============================================
+# IDE & EDITOR
+# ============================================
+.idea
+.vscode
+*.swp
+*.swo
+*~
+
+# ============================================
+# OS
+# ============================================
+.DS_Store
+Thumbs.db
+
+# ============================================
+# DOCUMENTATION
+# ============================================
+*.md
+README*
+CHANGELOG*
+LICENSE*
