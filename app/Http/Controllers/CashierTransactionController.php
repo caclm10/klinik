@@ -59,12 +59,20 @@ class CashierTransactionController extends Controller
             ->paginate(10)
             ->withQueryString();
 
+        $totalPrice = Transaction::query()
+            ->whereHas('schedule', function ($query) use ($month, $year): void {
+                $query->whereMonth('schedule_date', $month)
+                    ->whereYear('schedule_date', $year);
+            })
+            ->sum('amount') ?? 0;
+
         return view('pages.cashier.month', [
             'month' => $month,
             'year' => $year,
             'monthName' => Carbon::createFromDate($year, $month, 1)->translatedFormat('F'),
             'schedules' => $schedules,
             'search' => $request->query('search'),
+            'totalPrice' => $totalPrice,
         ]);
     }
 
@@ -99,11 +107,19 @@ class CashierTransactionController extends Controller
             ->orderBy('start_time')
             ->get();
 
+        $totalPrice = Transaction::query()
+            ->whereHas('schedule', function ($query) use ($month, $year): void {
+                $query->whereMonth('schedule_date', $month)
+                    ->whereYear('schedule_date', $year);
+            })
+            ->sum('amount') ?? 0;
+
         $pdf = Pdf::loadView('pdf.cashier-month', [
             'month' => $month,
             'year' => $year,
             'monthName' => Carbon::createFromDate($year, $month, 1)->translatedFormat('F'),
             'schedules' => $schedules,
+            'totalPrice' => $totalPrice,
         ]);
 
         return $pdf->download("kasir-{$month}-{$year}.pdf");

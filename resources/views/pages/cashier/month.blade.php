@@ -33,6 +33,7 @@
         <x-ui.empty-state title="Belum Ada Data" description="Tidak ada jadwal terapi pada bulan ini." />
     @else
         <div class="flex flex-col gap-4">
+            <p id="total-price" class="font-semibold">Total Harga: Rp{{ number_format($totalPrice, 0, ',', '.') }}</p>
             <div class="overflow-x-auto py-2">
                 <table class="table table--rounded border-separate border-spacing-y-3">
                     <thead>
@@ -43,6 +44,7 @@
                             <th>Nama Pasien</th>
                             <th>Treatment</th>
                             <th>Perawat/Dokter</th>
+                            <th>Harga</th>
                             <th>Aksi</th>
                         </tr>
                     </thead>
@@ -56,6 +58,13 @@
                                 <td>{{ $schedule->patient->name }}</td>
                                 <td>{{ $schedule->treatment }}</td>
                                 <td class="text-center">{{ $schedule->practitioner->name }}</td>
+                                <td class="text-right">
+                                    @if ($schedule->transaction)
+                                        Rp{{ number_format($schedule->transaction->amount, 0, ',', '.') }}
+                                    @else
+                                        -
+                                    @endif
+                                </td>
                                 <td>
                                     <a href="/kasir/{{ $schedule->id }}"
                                         class="button button--sm {{ $schedule->transaction ? 'bg-success text-success-foreground border-success' : 'bg-info text-info-foreground border-info' }}">

@@ -9,9 +9,7 @@ use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StaffController;
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::redirect('/', '/login');
 
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [SessionController::class, 'create'])->name('login');
