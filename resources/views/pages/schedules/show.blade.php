@@ -42,6 +42,8 @@
         </a>
     </div>
 
+    <x-ui.alert.success />
+
     <div class="bg-card shadow rounded-2xl overflow-hidden">
         <div class="p-6 bg-foreground text-white">
             <h2 class="text-xl font-bold text-nowrap">Informasi</h2>
@@ -75,7 +77,8 @@
             <div class="flex flex-col gap-6">
                 <div class="flex flex-col gap-1">
                     <span class="font-semibold">Waktu</span>
-                    <span>{{ $schedule->start_time->format('H:i') }} - {{ $schedule->end_time->format('H:i') }} WIB</span>
+                    <span>{{ $schedule->start_time->format('H:i') }} - {{ $schedule->end_time->format('H:i') }}
+                        WIB</span>
                 </div>
 
                 <div class="flex flex-col gap-1">

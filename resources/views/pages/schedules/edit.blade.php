@@ -13,7 +13,9 @@
 
     <div class="flex justify-center">
         <div class="bg-white border border-foreground rounded-xl shadow-lg p-6 max-w-xl w-full">
-            <form action="{{ route('schedules.update', $schedule) }}" method="POST" class="flex flex-col gap-6">
+            <form action="{{ route('schedules.update', $schedule) }}" method="POST" class="flex flex-col gap-6"
+                x-data="{ disabled: false }" x-on:open:entity-picker="disabled = true"
+                x-on:close:entity-picker="disabled = false">
                 @csrf
                 @method('PATCH')
 
@@ -51,7 +53,8 @@
                                                     <circle cx="11" cy="11" r="8" />
                                                 </svg>
                                                 <input type="search" placeholder="Cari nama pasien"
-                                                    class="pl-10 h-10 px-3 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary" />
+                                                    class="pl-10 h-10 px-3 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary"
+                                                    x-on:input.debounce="search($event.target.value)" />
                                             </div>
                                         </div>
                                         <div class="overflow-x-auto py-2">
@@ -221,7 +224,8 @@
                                                 <circle cx="11" cy="11" r="8" />
                                             </svg>
                                             <input type="search" placeholder="Cari nama dokter/perawat"
-                                                class="pl-10 h-10 px-3 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary" />
+                                                class="pl-10 h-10 px-3 border border-border rounded-lg text-sm focus-within:outline-none focus-within:ring-1 focus-within:ring-primary focus-within:border-primary"
+                                                x-on:input.debounce="search($event.target.value)" />
                                         </div>
                                     </div>
                                     <div class="overflow-x-auto py-2">
@@ -332,14 +336,22 @@
                 </div>
 
                 <div class="flex flex-col gap-3">
-                    <button type="submit" class="button bg-primary text-primary-foreground border-primary">
+                    <button type="submit" class="button bg-primary text-primary-foreground border-primary"
+                        x-bind:disabled="disabled">
                         Simpan
                     </button>
 
-                    <a href="{{ $prev }}" class="button">
-                        Batal
-                    </a>
+                    <button type="submit" form="delete-form" class="button text-destructive border-destructive">
+                        Hapus Data
+                    </button>
                 </div>
+            </form>
+
+            <form id="delete-form" action="{{ route('schedules.destroy', $schedule) }}" method="POST"
+                class="hidden"
+                data-alert="Apakah Anda yakin ingin menghapus data jadwal terapi ini? Data yang dihapus tidak dapat dikembalikan.">
+                @csrf
+                @method('DELETE')
             </form>
         </div>
     </div>

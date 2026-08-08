@@ -56,8 +56,8 @@ class ScheduleController extends Controller
                     $query->where('name', 'like', "%{$search}%");
                 });
             })
-            ->orderBy('schedule_date')
-            ->orderBy('start_time')
+            ->orderBy('schedule_date', 'desc')
+            ->orderBy('start_time', 'desc')
             ->paginate(10)
             ->withQueryString();
 
@@ -109,7 +109,7 @@ class ScheduleController extends Controller
     {
         $schedule->update($request->validated());
 
-        return redirect()->to("/jadwal-terapi/{$schedule->schedule_date->format('m-Y')}")
+        return redirect()->to("/jadwal-terapi/{$schedule->id}")
             ->with('success', 'Jadwal terapi berhasil diperbarui.');
     }
 

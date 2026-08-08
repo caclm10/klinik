@@ -1,7 +1,22 @@
 import Alpine from "alpinejs";
-import { BarController, BarElement, CategoryScale, Chart, Legend, LinearScale, Tooltip } from "chart.js";
+import {
+    BarController,
+    BarElement,
+    CategoryScale,
+    Chart,
+    Legend,
+    LinearScale,
+    Tooltip,
+} from "chart.js";
 
-Chart.register(BarController, BarElement, CategoryScale, LinearScale, Tooltip, Legend);
+Chart.register(
+    BarController,
+    BarElement,
+    CategoryScale,
+    LinearScale,
+    Tooltip,
+    Legend,
+);
 
 const currencyFormatter = new Intl.NumberFormat("id-ID");
 
@@ -100,8 +115,11 @@ function initVisitsChart() {
     const femaleData = JSON.parse(canvas.dataset.female);
 
     const rootStyles = getComputedStyle(document.documentElement);
-    const femaleColor = rootStyles.getPropertyValue("--color-muted-foreground").trim() || "#737373";
-    const maleColor = rootStyles.getPropertyValue("--color-primary").trim() || "#1591dc";
+    const femaleColor =
+        rootStyles.getPropertyValue("--color-muted-foreground").trim() ||
+        "#737373";
+    const maleColor =
+        rootStyles.getPropertyValue("--color-primary").trim() || "#1591dc";
 
     new Chart(canvas, {
         type: "bar",
@@ -178,6 +196,7 @@ Alpine.data("entityPicker", (path) => {
     }
 
     return {
+        open: false,
         paginator: {
             data: [],
             links: [],
@@ -193,15 +212,22 @@ Alpine.data("entityPicker", (path) => {
         },
 
         async open() {
+            this.$dispatch("open:entity-picker");
+
             this.$refs.dialog.showModal();
 
             this.paginator = await fetchData();
-
-            console.log(this.paginator);
         },
 
         close() {
             this.$refs.dialog.close();
+
+            this.$dispatch("close:entity-picker");
+        },
+
+        async search(value) {
+            console.log("Searching for:", value);
+            this.paginator = await fetchData(1, value);
         },
 
         async goToPage(page) {
