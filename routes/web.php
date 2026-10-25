@@ -3,7 +3,9 @@
 use App\Http\Controllers\AccountController;
 use App\Http\Controllers\CashierTransactionController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\ForgotPasswordController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\ResetPasswordController;
 use App\Http\Controllers\ScheduleController;
 use App\Http\Controllers\SessionController;
 use App\Http\Controllers\StaffController;
@@ -14,6 +16,20 @@ Route::redirect('/', '/login');
 Route::middleware(['guest'])->group(function () {
     Route::get('/login', [SessionController::class, 'create'])->name('login');
     Route::post('/login', [SessionController::class, 'store']);
+
+    Route::get('/forgot-password', [ForgotPasswordController::class, 'create'])
+        ->name('password.request');
+
+    Route::post('/forgot-password', [ForgotPasswordController::class, 'store'])
+        ->middleware('throttle:5,1')
+        ->name('password.email');
+
+    Route::get('/reset-password/{token}', [ResetPasswordController::class, 'create'])
+        ->name('password.reset');
+
+    Route::post('/reset-password', [ResetPasswordController::class, 'store'])
+        ->middleware('throttle:5,1')
+        ->name('password.update');
 
 });
 

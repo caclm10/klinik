@@ -115,6 +115,15 @@
                     anda.</p>
             </div>
 
+            <!-- Status berhasil -->
+            @if (session('status'))
+                <div
+                    role="status"
+                    class="mb-6 rounded-lg border border-green-200 bg-green-50 px-4 py-3 text-[14px] text-green-700 font-[Poppins]">
+                    {{ session('status') }}
+                </div>
+            @endif
+
             <!-- Form input -->
             <form action="/login" method="POST" id="login-form">
                 @csrf
