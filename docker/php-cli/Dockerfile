@@ -60,7 +60,9 @@ COPY --from=builder /var/www /var/www
 WORKDIR /var/www
 
 # Ensure correct permissions
-RUN chown -R www-data:www-data /var/www
+RUN chown -R www-data:www-data \
+    /var/www/storage \
+    /var/www/bootstrap/cache
 
 # Switch to the non-privileged user to run the application
 USER www-data
